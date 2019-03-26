@@ -33,60 +33,61 @@ public abstract class WalkingEntity extends BaseEntity {
             return;
         }
 
-        if (this.followTarget != null && !this.followTarget.closed && this.followTarget.isAlive() && targetOption((EntityCreature) this.followTarget,this.distanceSquared(this.followTarget)) && this.target!=null) {
-            return;
-        }
-
-        this.followTarget = null;
-
-        double near = Integer.MAX_VALUE;
-
-        for (Entity entity : this.getLevel().getEntities()) {
-            if (entity == this || !(entity instanceof EntityCreature) || entity instanceof Animal) {
-                continue;
-            }
-
-            EntityCreature creature = (EntityCreature) entity;
-            if (creature instanceof BaseEntity && ((BaseEntity) creature).isFriendly() == this.isFriendly()) {
-                continue;
-            }
-
-            double distance = this.distanceSquared(creature);
-            if (distance > near || !this.targetOption(creature, distance)) {
-                continue;
-            }
-            near = distance;
-
-            this.stayTime = 0;
-            this.moveTime = 0;
-            this.followTarget = creature;
-            if (this.route==null)this.target = creature;
-
-        }
-
-        if (this.followTarget instanceof EntityCreature && !((EntityCreature) this.followTarget).closed && this.followTarget.isAlive() && this.targetOption((EntityCreature) this.followTarget, this.distanceSquared(this.followTarget)) && this.target != null) {
-            return;
-        }
-
-        int x, z;
-        if (this.stayTime > 0) {
-            if (Utils.rand(1, 100) > 5) {
+        if (this.followTarget != null) {
+            if (!this.followTarget.closed && this.followTarget.isAlive() && targetOption((EntityCreature) this.followTarget,this.distanceSquared(this.followTarget)) && this.target != null) {
                 return;
             }
-            x = Utils.rand(10, 30);
-            z = Utils.rand(10, 30);
-            this.target = this.add(Utils.rand() ? x : -x, Utils.rand(-20, 20) / 10, Utils.rand() ? z : -z);
-        } else if (Utils.rand(1, 410) == 1) {
-            x = Utils.rand(10, 30);
-            z = Utils.rand(10, 30);
-            this.stayTime = Utils.rand(100, 400);
-            this.target = this.add(Utils.rand() ? x : -x, Utils.rand(-20, 20) / 10, Utils.rand() ? z : -z);
-        } else if (this.moveTime <= 0 || this.target == null) {
-            x = Utils.rand(20, 100);
-            z = Utils.rand(20, 100);
-            this.stayTime = 0;
-            this.moveTime = Utils.rand(300, 1200);
-            this.target = this.add(Utils.rand() ? x : -x, 0, Utils.rand() ? z : -z);
+            this.followTarget = null;
+
+            double near = Integer.MAX_VALUE;
+
+            for (Entity entity : this.getLevel().getEntities()) {
+                if (entity == this || !(entity instanceof EntityCreature) || entity instanceof Animal) {
+                    continue;
+                }
+
+                EntityCreature creature = (EntityCreature) entity;
+                if (creature instanceof BaseEntity && ((BaseEntity) creature).isFriendly() == this.isFriendly()) {
+                    continue;
+                }
+
+                double distance = this.distanceSquared(creature);
+                if (distance > near || !this.targetOption(creature, distance)) {
+                    continue;
+                }
+                near = distance;
+
+                this.stayTime = 0;
+                this.moveTime = 0;
+                this.followTarget = creature;
+                if (this.route == null) this.target = creature;
+            }
+        }
+
+        if (this.followTarget instanceof EntityCreature) {
+            if (!((EntityCreature) this.followTarget).closed && this.followTarget.isAlive() && this.targetOption((EntityCreature) this.followTarget, this.distanceSquared(this.followTarget)) && this.target != null) {
+                return;
+            }
+            int x, z;
+            if (this.stayTime > 0) {
+                if (Utils.rand(1, 100) > 5) {
+                    return;
+                }
+                x = Utils.rand(10, 30);
+                z = Utils.rand(10, 30);
+                this.target = this.add(Utils.rand() ? x : -x, Utils.rand(-20, 20) / 10, Utils.rand() ? z : -z);
+            } else if (Utils.rand(1, 410) == 1) {
+                x = Utils.rand(10, 30);
+                z = Utils.rand(10, 30);
+                this.stayTime = Utils.rand(100, 400);
+                this.target = this.add(Utils.rand() ? x : -x, Utils.rand(-20, 20) / 10, Utils.rand() ? z : -z);
+            } else if (this.moveTime <= 0 || this.target == null) {
+                x = Utils.rand(20, 100);
+                z = Utils.rand(20, 100);
+                this.stayTime = 0;
+                this.moveTime = Utils.rand(300, 1200);
+                this.target = this.add(Utils.rand() ? x : -x, 0, Utils.rand() ? z : -z);
+            }
         }
     }
 

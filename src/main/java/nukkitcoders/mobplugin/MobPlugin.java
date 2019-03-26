@@ -46,6 +46,8 @@ import nukkitcoders.mobplugin.entities.projectile.*;
 import nukkitcoders.mobplugin.event.entity.SpawnGolemEvent;
 import nukkitcoders.mobplugin.event.spawner.SpawnerChangeTypeEvent;
 import nukkitcoders.mobplugin.event.spawner.SpawnerCreateEvent;
+import nukkitcoders.mobplugin.spwning.NetherWorldMobsSpawnTask;
+import nukkitcoders.mobplugin.spwning.OverWorldMobsSpawnTask;
 import nukkitcoders.mobplugin.utils.Utils;
 
 import static nukkitcoders.mobplugin.entities.block.BlockEntitySpawner.*;
@@ -83,7 +85,8 @@ public class MobPlugin extends PluginBase implements Listener {
         int spawnDelay = pluginConfig.getInt("entities.autospawn-ticks", 0);
 
         if (spawnDelay > 0) {
-            this.getServer().getScheduler().scheduleDelayedRepeatingTask(this, new AutoSpawnTask(this), spawnDelay, spawnDelay);
+            this.getServer().getScheduler().scheduleRepeatingTask(this, new NetherWorldMobsSpawnTask(), 20 * 5, true);
+            this.getServer().getScheduler().scheduleRepeatingTask(this, new OverWorldMobsSpawnTask(), 20 * 5, true);
         }
 
         this.getServer().getPluginManager().registerEvents(this, this);
@@ -170,7 +173,7 @@ public class MobPlugin extends PluginBase implements Listener {
     }
 
     private void registerEntities() {
-        BlockEntity.registerBlockEntity("MobSpawner", BlockEntitySpawner.class);
+        //BlockEntity.registerBlockEntity("MobSpawner", BlockEntitySpawner.class);
 
         Entity.registerEntity(Bat.class.getSimpleName(), Bat.class);
         Entity.registerEntity(Cat.class.getSimpleName(), Cat.class);

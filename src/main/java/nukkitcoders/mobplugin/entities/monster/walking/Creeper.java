@@ -95,7 +95,7 @@ public class Creeper extends WalkingMonster implements EntityExplosive {
         }
 
         if (!this.isAlive()) {
-            if (++this.deadTicks >= 23) {
+            if (++this.deadTicks >= 23  ) {
                 this.close();
                 return false;
             }
@@ -140,7 +140,7 @@ public class Creeper extends WalkingMonster implements EntityExplosive {
                         this.setDataFlag(DATA_FLAGS, DATA_FLAG_IGNITED, true);
                     }
                     this.bombTime += tickDiff;
-                    if (this.bombTime >= 64) {
+                    if (this.bombTime >= 34) {
                         this.explode();
                         return false;
                     }
