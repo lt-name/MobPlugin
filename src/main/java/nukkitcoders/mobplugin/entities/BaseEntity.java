@@ -8,7 +8,6 @@ import cn.nukkit.entity.EntityCreature;
 import cn.nukkit.event.entity.EntityDamageByEntityEvent;
 import cn.nukkit.event.entity.EntityDamageEvent;
 import cn.nukkit.item.Item;
-import cn.nukkit.level.Position;
 import cn.nukkit.level.format.FullChunk;
 import cn.nukkit.math.AxisAlignedBB;
 import cn.nukkit.math.Vector3;
@@ -275,5 +274,9 @@ public abstract class BaseEntity extends EntityCreature implements EntityAgeable
             return new Item[]{Item.get(Item.NAME_TAG, 0, 1)};
         }
         return new Item[0];
+    }
+
+    public float getMountedYOffset() {
+        return getHeight() * 0.75F;
     }
 }

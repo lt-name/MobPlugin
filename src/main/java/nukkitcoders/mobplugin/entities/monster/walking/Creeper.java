@@ -95,7 +95,7 @@ public class Creeper extends WalkingMonster implements EntityExplosive {
         }
 
         if (!this.isAlive()) {
-            if (++this.deadTicks >= 23  ) {
+            if (++this.deadTicks >= 23) {
                 this.close();
                 return false;
             }

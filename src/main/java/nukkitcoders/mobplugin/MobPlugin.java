@@ -85,8 +85,8 @@ public class MobPlugin extends PluginBase implements Listener {
         int spawnDelay = pluginConfig.getInt("entities.autospawn-ticks", 0);
 
         if (spawnDelay > 0) {
-            this.getServer().getScheduler().scheduleRepeatingTask(this, new NetherWorldMobsSpawnTask(), 20 * 5, true);
-            this.getServer().getScheduler().scheduleRepeatingTask(this, new OverWorldMobsSpawnTask(), 20 * 5, true);
+            this.getServer().getScheduler().scheduleDelayedRepeatingTask(this, new NetherWorldMobsSpawnTask(), spawnDelay, spawnDelay, true);
+            this.getServer().getScheduler().scheduleDelayedRepeatingTask(this, new OverWorldMobsSpawnTask(), spawnDelay, spawnDelay, true);
         }
 
         this.getServer().getPluginManager().registerEvents(this, this);
@@ -173,7 +173,7 @@ public class MobPlugin extends PluginBase implements Listener {
     }
 
     private void registerEntities() {
-        //BlockEntity.registerBlockEntity("MobSpawner", BlockEntitySpawner.class);
+        BlockEntity.registerBlockEntity("MobSpawner", BlockEntitySpawner.class);
 
         Entity.registerEntity(Bat.class.getSimpleName(), Bat.class);
         Entity.registerEntity(Cat.class.getSimpleName(), Cat.class);
