@@ -60,6 +60,7 @@ public class EntityEnderCharge extends EntityProjectile {
 
         if (this.age > 1200 || this.isCollided) {
             this.close();
+            return false;
         }
 
         return super.onUpdate(currentTick);

@@ -60,11 +60,11 @@ public class Spider extends WalkingMonster implements EntityArthropod {
 
     @Override
     protected boolean checkJump(double dx, double dz) {
-        if (this.motionY == this.getGravity() * 2) {
+        if (this.motionY == 0.16) {
             return this.level.getBlock(new Vector3(NukkitMath.floorDouble(this.x), (int) this.y, NukkitMath.floorDouble(this.z))) instanceof BlockLiquid;
         } else {
             if (this.level.getBlock(new Vector3(NukkitMath.floorDouble(this.x), (int) (this.y + 0.8), NukkitMath.floorDouble(this.z))) instanceof BlockLiquid) {
-                this.motionY = this.getGravity() * 2;
+                this.motionY = 0.16;
                 return true;
             }
         }
@@ -73,7 +73,7 @@ public class Spider extends WalkingMonster implements EntityArthropod {
             Block block = this.getLevel().getBlock(new Vector3(NukkitMath.floorDouble(this.x + dx), (int) this.y, NukkitMath.floorDouble(this.z + dz)));
             Block directionBlock = block.getSide(this.getDirection());
             if (!directionBlock.canPassThrough()) {
-                this.motionY = this.getGravity() * 3;
+                this.motionY = 0.24;
                 return true;
             }
         } catch (Exception ignore) {}

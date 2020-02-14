@@ -57,14 +57,14 @@ public class AutoSpawnTask extends Thread {
     }
 
     private void prepareSpawnerClasses() {
-        entitySpawners.add(new BatSpawner(this));
+        //entitySpawners.add(new BatSpawner(this));
         entitySpawners.add(new BlazeSpawner(this));
         entitySpawners.add(new ChickenSpawner(this));
         entitySpawners.add(new CodSpawner(this));
         entitySpawners.add(new CowSpawner(this));
         entitySpawners.add(new CreeperSpawner(this));
         entitySpawners.add(new DolphinSpawner(this));
-        entitySpawners.add(new DonkeySpawner(this));
+        //entitySpawners.add(new DonkeySpawner(this));
         entitySpawners.add(new EndermanSpawner(this));
         entitySpawners.add(new GhastSpawner(this));
         entitySpawners.add(new HorseSpawner(this));
@@ -94,14 +94,14 @@ public class AutoSpawnTask extends Thread {
     }
 
     private void prepareMaxSpawns() {
-        maxSpawns.put(Bat.NETWORK_ID, this.pluginConfig.getInt("autospawn.bat"));
+        //maxSpawns.put(Bat.NETWORK_ID, this.pluginConfig.getInt("autospawn.bat"));
         maxSpawns.put(Blaze.NETWORK_ID, this.pluginConfig.getInt("autospawn.blaze"));
         maxSpawns.put(Chicken.NETWORK_ID, this.pluginConfig.getInt("autospawn.chicken"));
         maxSpawns.put(Cod.NETWORK_ID, this.pluginConfig.getInt("autospawn.cod"));
         maxSpawns.put(Cow.NETWORK_ID, this.pluginConfig.getInt("autospawn.cow"));
         maxSpawns.put(Creeper.NETWORK_ID, this.pluginConfig.getInt("autospawn.creeper"));
         maxSpawns.put(Dolphin.NETWORK_ID, this.pluginConfig.getInt("autospawn.dolphin"));
-        maxSpawns.put(Donkey.NETWORK_ID, this.pluginConfig.getInt("autospawn.donkey"));
+        //maxSpawns.put(Donkey.NETWORK_ID, this.pluginConfig.getInt("autospawn.donkey"));
         maxSpawns.put(Enderman.NETWORK_ID, this.pluginConfig.getInt("autospawn.enderman"));
         maxSpawns.put(Ghast.NETWORK_ID, this.pluginConfig.getInt("autospawn.ghast"));
         maxSpawns.put(Horse.NETWORK_ID, this.pluginConfig.getInt("autospawn.horse"));
@@ -193,8 +193,8 @@ public class AutoSpawnTask extends Thread {
         if (level.getBlockIdAt(x, y, z) == Block.AIR) {
             while (true) {
                 y--;
-                if (y > 255) {
-                    y = 256;
+                if (y > 127) {
+                    y = 128;
                     break;
                 }
                 if (y < 1) {
@@ -207,7 +207,7 @@ public class AutoSpawnTask extends Thread {
                     while (true) {
                         checkY++;
                         checkNeedDegree--;
-                        if (checkY > 255 || checkY < 1 || level.getBlockIdAt(x, checkY, z) != Block.AIR) {
+                        if (checkY > 127 || checkY < 1 || level.getBlockIdAt(x, checkY, z) != Block.AIR) {
                             break;
                         }
 
@@ -220,8 +220,8 @@ public class AutoSpawnTask extends Thread {
         } else {
             while (true) {
                 y++;
-                if (y > 255) {
-                    y = 256;
+                if (y > 127) {
+                    y = 128;
                     break;
                 }
 
@@ -236,7 +236,7 @@ public class AutoSpawnTask extends Thread {
                     while (true) {
                         checkY--;
                         checkNeedDegree--;
-                        if (checkY > 255 || checkY < 1 || level.getBlockIdAt(x, checkY, z) != Block.AIR) {
+                        if (checkY > 127 || checkY < 1 || level.getBlockIdAt(x, checkY, z) != Block.AIR) {
                             break;
                         }
 

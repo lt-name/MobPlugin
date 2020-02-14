@@ -1,6 +1,7 @@
 package nukkitcoders.mobplugin.entities.animal;
 
 import cn.nukkit.Player;
+import cn.nukkit.Server;
 import cn.nukkit.entity.data.ShortEntityData;
 import cn.nukkit.event.entity.EntityDamageEvent;
 import cn.nukkit.item.Item;
@@ -82,18 +83,22 @@ public abstract class WalkingAnimal extends WalkingEntity implements Animal {
             }
         }
 
-        int tickDiff = currentTick - this.lastUpdate;
-        this.lastUpdate = currentTick;
-        this.entityBaseTick(tickDiff);
+        if (Server.getInstance().getTick() % 4 == 0) {
+            int tickDiff = currentTick - this.lastUpdate;
+            this.lastUpdate = currentTick;
+            this.entityBaseTick(tickDiff);
 
-        Vector3 target = this.updateMove(tickDiff);
-        if (target instanceof Player) {
-            if (this.distanceSquared(target) <= 2) {
-                this.pitch = 22;
-                this.x = this.lastX;
-                this.y = this.lastY;
-                this.z = this.lastZ;
+            Vector3 target = this.updateMove(tickDiff);
+            if (target instanceof Player) {
+                if (this.distanceSquared(target) <= 2) {
+                    this.pitch = 22;
+                    this.x = this.lastX;
+                    this.y = this.lastY;
+                    this.z = this.lastZ;
+                }
             }
+        } else {
+            this.updateMovementLite();
         }
         return true;
     }

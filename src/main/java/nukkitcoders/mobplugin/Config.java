@@ -36,11 +36,11 @@ public class Config {
         }
 
         spawnDelay = pluginConfig.getInt("entities.autospawn-ticks");
-        noXpOrbs = pluginConfig.getBoolean("other.use-no-xp-orbs");
+        noXpOrbs = true;//pluginConfig.getBoolean("other.use-no-xp-orbs");
         noSpawnEggWasting = pluginConfig.getBoolean("other.do-not-waste-spawn-eggs");
         despawnTicks = pluginConfig.getInt("entities.despawn-ticks");
         spawnerRange = pluginConfig.getInt("other.spawner-spawn-range");
-        killOnDespawn = pluginConfig.getBoolean("other.kill-mobs-on-despawn");
+        killOnDespawn = false;//pluginConfig.getBoolean("other.kill-mobs-on-despawn");
 
         return true;
     }

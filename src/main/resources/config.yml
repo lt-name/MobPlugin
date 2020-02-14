@@ -5,7 +5,7 @@ entities:
   # how often the spawn task should run
   # in ticks, 20 ticks = 1 second
   # use 0 to disable entity spawning
-  autospawn-ticks: 200
+  autospawn-ticks: 400
   # how often the despawn task should run
   # in ticks, 20 ticks = 1 second
   # use 0 to disable entity despawning
@@ -16,14 +16,14 @@ entities:
 # spawning limit settings
 # per player, in 100 blocks range
 autospawn:
-  bat: 1
+  bat: 0
   blaze: 2
   chicken: 2
   cod: 2
   cow: 2
   creeper: 2
   dolphin: 1
-  donkey: 1
+  donkey: 0
   enderman: 1
   ghast: 2
   husk: 2
@@ -57,7 +57,7 @@ other:
   # don't reduce spawn eggs if there is same entity already in the spawner (non vanilla behavior)
   do-not-waste-spawn-eggs: false
   # give xp drops straight to player
-  use-no-xp-orbs: false
+  use-no-xp-orbs: true
   # do not spawn mobs this near to spawn area
   spawn-no-spawning-area: 1
   # kill entities instead of despawning them

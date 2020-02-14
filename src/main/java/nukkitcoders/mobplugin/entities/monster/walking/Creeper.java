@@ -1,6 +1,7 @@
 package nukkitcoders.mobplugin.entities.monster.walking;
 
 import cn.nukkit.Player;
+import cn.nukkit.Server;
 import cn.nukkit.block.BlockLiquid;
 import cn.nukkit.entity.Entity;
 import cn.nukkit.entity.EntityCreature;
@@ -112,96 +113,100 @@ public class Creeper extends WalkingMonster implements EntityExplosive {
             return true;
         }
 
-        int tickDiff = currentTick - this.lastUpdate;
-        this.lastUpdate = currentTick;
-        this.entityBaseTick(tickDiff);
+        if (Server.getInstance().getTick() % 4 == 0) {
+            int tickDiff = currentTick - this.lastUpdate;
+            this.lastUpdate = currentTick;
+            this.entityBaseTick(tickDiff);
 
-        if (!this.isMovement()) {
-            return true;
-        }
-        if (this.age % 10 == 0 && this.route!=null && !this.route.isSearching()) {
-            RouteFinderThreadPool.executeRouteFinderThread(new RouteFinderSearchTask(this.route));
-            if (this.route.hasNext()) {
-                this.target = this.route.next();
+            if (!this.isMovement()) {
+                return true;
             }
-        }
-
-        if (this.isKnockback()) {
-            this.move(this.motionX * tickDiff, this.motionY, this.motionZ * tickDiff);
-            this.motionY -= this.getGravity() * tickDiff;
-            this.updateMovement();
-            return true;
-        }
-
-        this.checkTarget();
-
-        if (this.followTarget != null && !this.followTarget.closed && this.followTarget.isAlive() && this.target != null) {
-            double x = this.target.x - this.x;
-            double z = this.target.z - this.z;
-
-            double diff = Math.abs(x) + Math.abs(z);
-            double distance = followTarget.distance(this);
-            if (distance <= 4) {
-                if (followTarget instanceof EntityCreature) {
-                    if (bombTime >= 0) {
-                        this.level.addSound(this, Sound.RANDOM_FUSE);
-                        this.setDataProperty(new IntEntityData(Entity.DATA_FUSE_LENGTH, bombTime));
-                        this.setDataFlag(DATA_FLAGS, DATA_FLAG_IGNITED, true);
-                    }
-                    this.bombTime += tickDiff;
-                    if (this.bombTime >= 30) {
-                        this.explode();
-                        return false;
-                    }
-                    if (distance <= 1) {
-                        this.stayTime = 10;
-                    }
-                }
-            } else {
-                this.setDataFlag(DATA_FLAGS, DATA_FLAG_IGNITED, false);
-                this.bombTime = 0;
-
-                this.motionX = this.getSpeed() * 0.15 * (x / diff);
-                this.motionZ = this.getSpeed() * 0.15 * (z / diff);
-            }
-            if (this.stayTime <= 0 || Utils.rand()) this.yaw = Math.toDegrees(-Math.atan2(x / diff, z / diff));
-        }
-
-        double dx = this.motionX * tickDiff;
-        double dz = this.motionZ * tickDiff;
-        boolean isJump = this.checkJump(dx, dz);
-        if (this.stayTime > 0) {
-            this.stayTime -= tickDiff;
-            this.move(0, this.motionY * tickDiff, 0);
-        } else {
-            Vector2 be = new Vector2(this.x + dx, this.z + dz);
-            this.move(dx, this.motionY * tickDiff, dz);
-            Vector2 af = new Vector2(this.x, this.z);
-
-            if ((be.x != af.x || be.y != af.y) && !isJump) {
-                this.moveTime -= 90 * tickDiff;
-            }
-        }
-
-        if (!isJump) {
-            if (this.onGround) {
-                this.motionY = 0;
-            } else if (this.motionY > -this.getGravity() * 4) {
-                if (!(this.level.getBlock(new Vector3(NukkitMath.floorDouble(this.x), (int) (this.y + 0.8), NukkitMath.floorDouble(this.z))) instanceof BlockLiquid)) {
-                    this.motionY -= this.getGravity();
-                }
-            } else {
-                this.motionY -= this.getGravity() * tickDiff;
-            }
-        }
-        this.updateMovement();
-        if (this.route != null) {
-            if (this.route.hasCurrentNode() && this.route.hasArrivedNode(this)) {
-                this.target = null;
+            if (this.age % 10 == 0 && this.route != null && !this.route.isSearching()) {
+                RouteFinderThreadPool.executeRouteFinderThread(new RouteFinderSearchTask(this.route));
                 if (this.route.hasNext()) {
                     this.target = this.route.next();
                 }
             }
+
+            if (this.isKnockback()) {
+                this.move(this.motionX * tickDiff, this.motionY, this.motionZ * tickDiff);
+                this.motionY -= 0.08 * tickDiff;
+                this.updateMovement();
+                return true;
+            }
+
+            this.checkTarget();
+
+            if (this.followTarget != null && !this.followTarget.closed && this.followTarget.isAlive() && this.target != null) {
+                double x = this.target.x - this.x;
+                double z = this.target.z - this.z;
+
+                double diff = Math.abs(x) + Math.abs(z);
+                double distance = followTarget.distance(this);
+                if (distance <= 4) {
+                    if (followTarget instanceof EntityCreature) {
+                        if (bombTime >= 0) {
+                            this.level.addSound(this, Sound.RANDOM_FUSE);
+                            this.setDataProperty(new IntEntityData(Entity.DATA_FUSE_LENGTH, bombTime));
+                            this.setDataFlag(DATA_FLAGS, DATA_FLAG_IGNITED, true);
+                        }
+                        this.bombTime += tickDiff;
+                        if (this.bombTime >= 30) {
+                            this.explode();
+                            return false;
+                        }
+                        if (distance <= 1) {
+                            this.stayTime = 10;
+                        }
+                    }
+                } else {
+                    this.setDataFlag(DATA_FLAGS, DATA_FLAG_IGNITED, false);
+                    this.bombTime = 0;
+
+                    this.motionX = this.getSpeed() * 0.15 * (x / diff);
+                    this.motionZ = this.getSpeed() * 0.15 * (z / diff);
+                }
+                if (this.stayTime <= 0 || Utils.rand()) this.yaw = Math.toDegrees(-Math.atan2(x / diff, z / diff));
+            }
+
+            double dx = this.motionX * tickDiff;
+            double dz = this.motionZ * tickDiff;
+            boolean isJump = this.checkJump(dx, dz);
+            if (this.stayTime > 0) {
+                this.stayTime -= tickDiff;
+                this.move(0, this.motionY * tickDiff, 0);
+            } else {
+                Vector2 be = new Vector2(this.x + dx, this.z + dz);
+                this.move(dx, this.motionY * tickDiff, dz);
+                Vector2 af = new Vector2(this.x, this.z);
+
+                if ((be.x != af.x || be.y != af.y) && !isJump) {
+                    this.moveTime -= 90 * tickDiff;
+                }
+            }
+
+            if (!isJump) {
+                if (this.onGround) {
+                    this.motionY = 0;
+                } else if (this.motionY > -0.32) {
+                    if (!(this.level.getBlock(new Vector3(NukkitMath.floorDouble(this.x), (int) (this.y + 0.8), NukkitMath.floorDouble(this.z))) instanceof BlockLiquid)) {
+                        this.motionY -= 0.08;
+                    }
+                } else {
+                    this.motionY -= 0.08 * tickDiff;
+                }
+            }
+            this.updateMovement();
+            if (this.route != null) {
+                if (this.route.hasCurrentNode() && this.route.hasArrivedNode(this)) {
+                    this.target = null;
+                    if (this.route.hasNext()) {
+                        this.target = this.route.next();
+                    }
+                }
+            }
+        } else {
+            this.updateMovementLite();
         }
         return true;
     }

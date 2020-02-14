@@ -1,6 +1,7 @@
 package nukkitcoders.mobplugin.entities;
 
 import cn.nukkit.Player;
+import cn.nukkit.Server;
 import cn.nukkit.entity.Entity;
 import cn.nukkit.entity.EntityAgeable;
 import cn.nukkit.entity.EntityCreature;
@@ -139,7 +140,9 @@ public abstract class BaseEntity extends EntityCreature implements EntityAgeable
 
     @Override
     public boolean entityBaseTick(int tickDiff) {
-        super.entityBaseTick(tickDiff);
+        if (Server.getInstance().getTick() % 4 == 0) {
+            super.entityBaseTick(tickDiff);
+        }
 
         if (this.canDespawn()) {
             if (MobPlugin.getInstance().config.killOnDespawn) {
@@ -433,5 +436,12 @@ public abstract class BaseEntity extends EntityCreature implements EntityAgeable
 
     public int nearbyDistanceMultiplier() {
         return 1;
+    }
+
+    public void updateMovementLite() {
+        if (!this.isOnGround() && !this.isInsideOfWater()) {
+            this.motionY = -this.getGravity();
+            this.updateMovement();
+        }
     }
 }

@@ -150,14 +150,16 @@ public abstract class SwimmingMonster extends SwimmingEntity implements Monster 
             return true;
         }
 
-        int tickDiff = currentTick - this.lastUpdate;
-        this.lastUpdate = currentTick;
-        this.entityBaseTick(tickDiff);
+        if (Server.getInstance().getTick() % 4 == 0) {
+            int tickDiff = currentTick - this.lastUpdate;
+            this.lastUpdate = currentTick;
+            this.entityBaseTick(tickDiff);
 
-        Vector3 target = this.updateMove(tickDiff);
-        if ((!this.isFriendly() || !(target instanceof Player)) && target instanceof Entity) {
-            if (target != this.followTarget || this.canAttack) {
-                this.attackEntity((Entity) target);
+            Vector3 target = this.updateMove(tickDiff);
+            if ((!this.isFriendly() || !(target instanceof Player)) && target instanceof Entity) {
+                if (target != this.followTarget || this.canAttack) {
+                    this.attackEntity((Entity) target);
+                }
             }
         }
         return true;

@@ -77,6 +77,7 @@ public class EntityGhastFireBall extends EntityProjectile implements EntityExplo
                 this.explode();
             }
             this.close();
+            return false;
         }
 
         return super.onUpdate(currentTick);

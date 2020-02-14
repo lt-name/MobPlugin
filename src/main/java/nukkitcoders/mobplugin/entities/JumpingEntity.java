@@ -80,11 +80,11 @@ public abstract class JumpingEntity extends BaseEntity {
     }
 
     protected boolean checkJump() {
-        if (this.motionY == this.getGravity() * 2) {
+        if (this.motionY == 0.16) {
             return this.level.getBlock(new Vector3(NukkitMath.floorDouble(this.x), (int) this.y, NukkitMath.floorDouble(this.z))) instanceof BlockLiquid;
         } else {
             if (this.level.getBlock(new Vector3(NukkitMath.floorDouble(this.x), (int) (this.y + 0.8), NukkitMath.floorDouble(this.z))) instanceof BlockLiquid) {
-                this.motionY = this.getGravity() * 2;
+                this.motionY = 0.16;
                 return true;
             }
         }
@@ -94,10 +94,10 @@ public abstract class JumpingEntity extends BaseEntity {
         }
 
         if (this.motionX > 0 || this.motionZ > 0) {
-            if (this.motionY <= (this.getGravity() * 5)) {
-                this.motionY = this.getGravity() * 5;
+            if (this.motionY <= (0.4)) {
+                this.motionY = 0.4;
             } else {
-                this.motionY += this.getGravity() * 0.25;
+                this.motionY += 0.02;
             }
         }
 
@@ -112,7 +112,7 @@ public abstract class JumpingEntity extends BaseEntity {
 
             if (this.isKnockback()) {
                 this.move(this.motionX * tickDiff, this.motionY, this.motionZ * tickDiff);
-                this.motionY -= this.getGravity() * tickDiff;
+                this.motionY -= 0.08 * tickDiff;
                 this.updateMovement();
                 return null;
             }
@@ -181,12 +181,12 @@ public abstract class JumpingEntity extends BaseEntity {
             if (!isJump) {
                 if (this.onGround) {
                     this.motionY = 0;
-                } else if (this.motionY > -this.getGravity() * 4) {
+                } else if (this.motionY > -0.32) {
                     if (!(this.level.getBlock(new Vector3(NukkitMath.floorDouble(this.x), (int) (this.y + 0.8), NukkitMath.floorDouble(this.z))) instanceof BlockLiquid)) {
-                        this.motionY -= this.getGravity();
+                        this.motionY -= 0.08;
                     }
                 } else {
-                    this.motionY -= this.getGravity() * tickDiff;
+                    this.motionY -= 0.08 * tickDiff;
                 }
             }
             this.updateMovement();

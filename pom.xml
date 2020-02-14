@@ -7,8 +7,8 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
      </properties>
     <groupId>nukkitcoders.mobplugin</groupId>
-    <artifactId>MobPlugin</artifactId>
-    <version>1.11.1.2</version>
+    <artifactId>MobPlugin-Lite</artifactId>
+    <version>1.11.1.2_lite_b1</version>
     <build>
         <defaultGoal>install</defaultGoal>
         <sourceDirectory>${basedir}/src/main/java</sourceDirectory>

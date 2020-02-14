@@ -1,5 +1,6 @@
 package nukkitcoders.mobplugin.entities.projectile;
 
+import cn.nukkit.Server;
 import cn.nukkit.entity.Entity;
 import cn.nukkit.entity.EntityExplosive;
 import cn.nukkit.entity.projectile.EntityProjectile;
@@ -80,8 +81,11 @@ public class EntityBlueWitherSkull extends EntityProjectile implements EntityExp
             }
 
             this.close();
+            return false;
         } else {
-            this.level.addParticle(new SmokeParticle(this.add(this.getWidth() / 2 + Utils.rand(-100.0, 100.0) / 500, this.getHeight() / 2 + Utils.rand(-100.0, 100.0) / 500, this.getWidth() / 2 + Utils.rand(-100.0, 100.0) / 500)));
+            if (Server.getInstance().getTick() % 4 == 0) {
+                this.level.addParticle(new SmokeParticle(this.add(this.getWidth() / 2 + Utils.rand(-100.0, 100.0) / 500, this.getHeight() / 2 + Utils.rand(-100.0, 100.0) / 500, this.getWidth() / 2 + Utils.rand(-100.0, 100.0) / 500)));
+            }
         }
 
         return super.onUpdate(currentTick);

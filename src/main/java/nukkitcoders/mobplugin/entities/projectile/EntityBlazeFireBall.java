@@ -1,5 +1,6 @@
 package nukkitcoders.mobplugin.entities.projectile;
 
+import cn.nukkit.Server;
 import cn.nukkit.entity.Entity;
 import cn.nukkit.entity.projectile.EntityProjectile;
 import cn.nukkit.level.format.FullChunk;
@@ -53,13 +54,10 @@ public class EntityBlazeFireBall extends EntityProjectile {
             return false;
         }
 
-        this.timing.startTiming();
-
         if (this.age > 1200 || this.isCollided) {
             this.close();
+            return false;
         }
-
-        this.timing.startTiming();
 
         return super.onUpdate(currentTick);
     }

@@ -97,7 +97,7 @@ public abstract class SwimmingEntity extends BaseEntity {
 
             if (this.isKnockback()) {
                 this.move(this.motionX * tickDiff, this.motionY, this.motionZ * tickDiff);
-                this.motionY -= this.getGravity() * tickDiff;
+                this.motionY -= 0.08 * tickDiff;
                 this.updateMovement();
                 return null;
             }
@@ -141,7 +141,7 @@ public abstract class SwimmingEntity extends BaseEntity {
             if (this.isInsideOfWater() && (this.motionX > 0 || this.motionZ > 0)) {
                 this.motionY = Utils.rand(-0.12, 0.12);
             } else if (!this.isOnGround() && !isInsideOfWater()) {
-                this.motionY -= this.getGravity();
+                this.motionY -= 0.08;
             } else {
                 this.motionY = 0;
             }
