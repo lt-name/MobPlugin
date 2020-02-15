@@ -1,6 +1,5 @@
 package nukkitcoders.mobplugin.entities.projectile;
 
-import cn.nukkit.Server;
 import cn.nukkit.entity.Entity;
 import cn.nukkit.entity.projectile.EntityProjectile;
 import cn.nukkit.level.format.FullChunk;

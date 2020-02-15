@@ -46,18 +46,21 @@ public class EventListener implements Listener {
     @EventHandler(ignoreCancelled = true)
     public void EntityDeathEvent(EntityDeathEvent ev) {
         if (!(ev.getEntity() instanceof BaseEntity)) return;
+        Item[] drops = ev.getDrops();
+        ev.setDrops(new Item[0]);
         BaseEntity baseEntity = (BaseEntity) ev.getEntity();
         if (!(baseEntity.getLastDamageCause() instanceof EntityDamageByEntityEvent)) return;
         Entity damager = ((EntityDamageByEntityEvent) baseEntity.getLastDamageCause()).getDamager();
         if (!(damager instanceof Player)) return;
         int killExperience = baseEntity.getKillExperience();
-        if (killExperience > 0) {
-            if (MobPlugin.getInstance().config.noXpOrbs) {
+        //if (killExperience > 0) {
+            //if (MobPlugin.getInstance().config.noXpOrbs) {
                 ((Player) damager).addExperience(killExperience);
-            } else {
-                damager.getLevel().dropExpOrb(baseEntity, killExperience);
-            }
-        }
+            //} else {
+            //    damager.getLevel().dropExpOrb(baseEntity, killExperience);
+            //}
+        //}
+        ((Player) damager).getInventory().addItem(drops);
     }
 
     @EventHandler(ignoreCancelled = true)
