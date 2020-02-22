@@ -6,6 +6,7 @@ import cn.nukkit.block.Block;
 import cn.nukkit.block.BlockAir;
 import cn.nukkit.blockentity.BlockEntity;
 import cn.nukkit.entity.Entity;
+import cn.nukkit.entity.mob.EntityWither;
 import cn.nukkit.entity.projectile.EntityEgg;
 import cn.nukkit.entity.projectile.EntityEnderPearl;
 import cn.nukkit.event.EventHandler;
@@ -13,6 +14,7 @@ import cn.nukkit.event.EventPriority;
 import cn.nukkit.event.Listener;
 import cn.nukkit.event.block.BlockBreakEvent;
 import cn.nukkit.event.block.BlockPlaceEvent;
+import cn.nukkit.event.entity.CreatureSpawnEvent;
 import cn.nukkit.event.entity.EntityDamageByEntityEvent;
 import cn.nukkit.event.entity.EntityDeathEvent;
 import cn.nukkit.event.entity.ProjectileHitEvent;
@@ -117,6 +119,7 @@ public class EventListener implements Listener {
     public void BlockPlaceEvent(BlockPlaceEvent ev) {
         Block block = ev.getBlock();
         Player player = ev.getPlayer();
+        Item item = ev.getItem();
         if (block.getId() == Block.JACK_O_LANTERN || block.getId() == Block.PUMPKIN) {
             if (block.getSide(BlockFace.DOWN).getId() == Item.SNOW_BLOCK && block.getSide(BlockFace.DOWN, 2).getId() == Item.SNOW_BLOCK) {
 
@@ -126,13 +129,10 @@ public class EventListener implements Listener {
 
                 if (event.isCancelled()) return;
 
-                Entity entity = Entity.createEntity("SnowGolem", block.add(0.5, -1, 0.5));
-
-                if (entity != null) entity.spawnToAll();
-
                 block.level.setBlock(block.add(0, -1, 0), new BlockAir());
                 block.level.setBlock(block.add(0, -2, 0), new BlockAir());
 
+                Entity.createEntity("SnowGolem", block.add(0.5, -1, 0.5)).spawnToAll();
                 ev.setCancelled(true);
                 if (player.isSurvival()) player.getInventory().removeItem(Item.get(block.getId()));
             } else if (block.getSide(BlockFace.DOWN).getId() == Item.IRON_BLOCK && block.getSide(BlockFace.DOWN, 2).getId() == Item.IRON_BLOCK) {
@@ -156,17 +156,52 @@ public class EventListener implements Listener {
 
                 if (event.isCancelled()) return;
 
-                Entity entity = Entity.createEntity("IronGolem", block.add(0.5, -1, 0.5));
-
-                if (entity != null) entity.spawnToAll();
-
                 block.level.setBlock(first, new BlockAir());
                 block.level.setBlock(second, new BlockAir());
                 block.level.setBlock(block, new BlockAir());
                 block.level.setBlock(block.add(0, -1, 0), new BlockAir());
 
+                Entity.createEntity("IronGolem", block.add(0.5, -1, 0.5)).spawnToAll();
                 ev.setCancelled(true);
                 if (player.isSurvival()) player.getInventory().removeItem(Item.get(removeId));
+            }
+        } else if (item.getId() == Item.SKULL && item.getDamage() == 1) {
+            if (block.getSide(BlockFace.DOWN).getId() == Item.SOUL_SAND && block.getSide(BlockFace.DOWN, 2).getId() == Item.SOUL_SAND) {
+                Block first, second;
+
+                if (!(((first = block.getSide(BlockFace.EAST)).getId() == Item.SKULL_BLOCK && first.toItem().getDamage() == 1) && ((second = block.getSide(BlockFace.WEST)).getId() == Item.SKULL_BLOCK && second.toItem().getDamage() == 1) || ((first = block.getSide(BlockFace.NORTH)).getId() == Item.SKULL_BLOCK && first.toItem().getDamage() == 1) && ((second = block.getSide(BlockFace.SOUTH)).getId() == Item.SKULL_BLOCK && second.toItem().getDamage() == 1))) {
+                    return;
+                }
+
+                block = block.getSide(BlockFace.DOWN);
+
+                Block first2, second2;
+
+                if (!((first2 = block.getSide(BlockFace.EAST)).getId() == Item.SOUL_SAND && (second2 = block.getSide(BlockFace.WEST)).getId() == Item.SOUL_SAND || (first2 = block.getSide(BlockFace.NORTH)).getId() == Item.SOUL_SAND && (second2 = block.getSide(BlockFace.SOUTH)).getId() == Item.SOUL_SAND)) {
+                    return;
+                }
+
+                block.getLevel().setBlock(first, new BlockAir());
+                block.getLevel().setBlock(second, new BlockAir());
+                block.getLevel().setBlock(first2, new BlockAir());
+                block.getLevel().setBlock(second2, new BlockAir());
+                block.getLevel().setBlock(block, new BlockAir());
+                block.getLevel().setBlock(block.add(0, -1, 0), new BlockAir());
+
+                CreatureSpawnEvent event = new CreatureSpawnEvent(EntityWither.NETWORK_ID, block, null, CreatureSpawnEvent.SpawnReason.BUILD_WITHER);
+                Server.getInstance().getPluginManager().callEvent(event);
+
+                if (event.isCancelled()) {
+                    return;
+                }
+
+                if (!player.isCreative()) {
+                    item.setCount(item.getCount() - 1);
+                    player.getInventory().setItemInHand(item);
+                }
+
+                Entity.createEntity("Wither", block.add(0.5, -1, 0.5)).spawnToAll();
+                block.getLevel().addSound(block, cn.nukkit.level.Sound.MOB_WITHER_SPAWN);
             }
         }
     }

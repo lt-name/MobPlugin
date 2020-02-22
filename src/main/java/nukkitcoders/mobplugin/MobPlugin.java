@@ -256,6 +256,7 @@ public class MobPlugin extends PluginBase implements Listener {
         Entity.registerEntity("GhastFireBall", EntityGhastFireBall.class);
         Entity.registerEntity("ShulkerBullet", EntityShulkerBullet.class);
         Entity.registerEntity("EnderCharge", EntityEnderCharge.class);
+        Entity.registerEntity("WitherSkull", EntityWitherSkull.class);
     }
 
     public boolean isAnimalSpawningAllowedByTime(Level level) {
