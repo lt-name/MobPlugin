@@ -4,7 +4,6 @@ import cn.nukkit.block.*;
 import cn.nukkit.entity.Entity;
 import cn.nukkit.entity.EntityCreature;
 import cn.nukkit.level.format.FullChunk;
-import cn.nukkit.level.particle.BubbleParticle;
 import cn.nukkit.math.NukkitMath;
 import cn.nukkit.math.Vector2;
 import cn.nukkit.math.Vector3;
@@ -161,7 +160,7 @@ public abstract class WalkingEntity extends BaseEntity {
                     if (this.isInsideOfWater()) {
                         this.motionX = this.getSpeed() * moveMultifier * 0.05 * (x / diff);
                         this.motionZ = this.getSpeed() * moveMultifier * 0.05 * (z / diff);
-                        this.level.addParticle(new BubbleParticle(this.add(Utils.rand(-2.0,2.0),Utils.rand(-0.5,0),Utils.rand(-2.0,2.0))));
+                        //this.level.addParticle(new BubbleParticle(this.add(Utils.rand(-2.0,2.0),Utils.rand(-0.5,0),Utils.rand(-2.0,2.0))));
                     } else {
                         this.motionX = this.getSpeed() * moveMultifier * 0.1 * (x / diff);
                         this.motionZ = this.getSpeed() * moveMultifier * 0.1 * (z / diff);
@@ -184,7 +183,7 @@ public abstract class WalkingEntity extends BaseEntity {
                     if (this.isInsideOfWater()) {
                         this.motionX = this.getSpeed() * moveMultifier * 0.05 * (x / diff);
                         this.motionZ = this.getSpeed() * moveMultifier * 0.05 * (z / diff);
-                        this.level.addParticle(new BubbleParticle(this.add(Utils.rand(-2.0,2.0),Utils.rand(-0.5,0),Utils.rand(-2.0,2.0))));
+                        //this.level.addParticle(new BubbleParticle(this.add(Utils.rand(-2.0,2.0),Utils.rand(-0.5,0),Utils.rand(-2.0,2.0))));
                     } else {
                         this.motionX = this.getSpeed() * moveMultifier * 0.15 * (x / diff);
                         this.motionZ = this.getSpeed() * moveMultifier * 0.15 * (z / diff);

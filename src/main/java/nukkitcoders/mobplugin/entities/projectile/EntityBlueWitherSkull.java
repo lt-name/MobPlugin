@@ -1,16 +1,13 @@
 package nukkitcoders.mobplugin.entities.projectile;
 
-import cn.nukkit.Server;
 import cn.nukkit.entity.Entity;
 import cn.nukkit.entity.EntityExplosive;
 import cn.nukkit.event.entity.ExplosionPrimeEvent;
 import cn.nukkit.level.Explosion;
 import cn.nukkit.level.GameRule;
 import cn.nukkit.level.format.FullChunk;
-import cn.nukkit.level.particle.SmokeParticle;
 import cn.nukkit.nbt.tag.CompoundTag;
 import cn.nukkit.potion.Effect;
-import nukkitcoders.mobplugin.utils.Utils;
 
 public class EntityBlueWitherSkull extends EntityWitherSkull implements EntityExplosive {
 
@@ -52,10 +49,8 @@ public class EntityBlueWitherSkull extends EntityWitherSkull implements EntityEx
 
             this.close();
             return false;
-        } else {
-            if (Server.getInstance().getTick() % 4 == 0) {
-                this.level.addParticle(new SmokeParticle(this.add(this.getWidth() / 2 + Utils.rand(-100.0, 100.0) / 500, this.getHeight() / 2 + Utils.rand(-100.0, 100.0) / 500, this.getWidth() / 2 + Utils.rand(-100.0, 100.0) / 500)));
-            }
+        //} else {
+        //    this.level.addParticle(new SmokeParticle(this.add(this.getWidth() / 2 + Utils.rand(-100.0, 100.0) / 500, this.getHeight() / 2 + Utils.rand(-100.0, 100.0) / 500, this.getWidth() / 2 + Utils.rand(-100.0, 100.0) / 500)));
         }
 
         return super.onUpdate(currentTick);

@@ -5,6 +5,7 @@ import cn.nukkit.Server;
 import cn.nukkit.level.format.FullChunk;
 import cn.nukkit.math.Vector3;
 import cn.nukkit.nbt.tag.CompoundTag;
+import nukkitcoders.mobplugin.MobPlugin;
 import nukkitcoders.mobplugin.entities.JumpingEntity;
 
 public abstract class JumpingAnimal extends JumpingEntity implements Animal {
@@ -23,7 +24,7 @@ public abstract class JumpingAnimal extends JumpingEntity implements Animal {
             return true;
         }
 
-        if (Server.getInstance().getTick() % 4 == 0) {
+        if (!MobPlugin.throttle && Server.getInstance().getTick() % 4 == 0) {
             int tickDiff = currentTick - this.lastUpdate;
             this.lastUpdate = currentTick;
             this.entityBaseTick(tickDiff);

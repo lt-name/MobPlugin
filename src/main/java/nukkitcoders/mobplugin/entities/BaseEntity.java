@@ -140,7 +140,7 @@ public abstract class BaseEntity extends EntityCreature implements EntityAgeable
 
     @Override
     public boolean entityBaseTick(int tickDiff) {
-        if (Server.getInstance().getTick() % 4 == 0) {
+        if (Server.getInstance().getTick() % 20 == 0) {
             super.entityBaseTick(tickDiff);
         }
 
@@ -440,7 +440,7 @@ public abstract class BaseEntity extends EntityCreature implements EntityAgeable
 
     public void updateMovementLite() {
         if (!this.isOnGround() && !this.isInsideOfWater()) {
-            this.motionY = -this.getGravity();
+            this.motionY = -0.5;
             this.updateMovement();
         }
     }

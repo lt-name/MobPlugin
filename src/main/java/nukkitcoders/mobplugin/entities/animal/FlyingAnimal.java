@@ -6,6 +6,7 @@ import cn.nukkit.entity.EntityAgeable;
 import cn.nukkit.level.format.FullChunk;
 import cn.nukkit.math.Vector3;
 import cn.nukkit.nbt.tag.CompoundTag;
+import nukkitcoders.mobplugin.MobPlugin;
 import nukkitcoders.mobplugin.entities.FlyingEntity;
 
 public abstract class FlyingAnimal extends FlyingEntity implements EntityAgeable {
@@ -24,7 +25,7 @@ public abstract class FlyingAnimal extends FlyingEntity implements EntityAgeable
             return true;
         }
 
-        if (Server.getInstance().getTick() % 4 == 0) {
+        if (!MobPlugin.throttle && Server.getInstance().getTick() % 4 == 0) {
             int tickDiff = currentTick - this.lastUpdate;
             this.lastUpdate = currentTick;
             this.entityBaseTick(tickDiff);

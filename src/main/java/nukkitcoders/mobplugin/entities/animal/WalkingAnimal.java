@@ -10,6 +10,7 @@ import cn.nukkit.level.particle.HeartParticle;
 import cn.nukkit.math.Vector3;
 import cn.nukkit.nbt.tag.CompoundTag;
 import cn.nukkit.potion.Effect;
+import nukkitcoders.mobplugin.MobPlugin;
 import nukkitcoders.mobplugin.entities.WalkingEntity;
 import nukkitcoders.mobplugin.utils.Utils;
 
@@ -83,7 +84,7 @@ public abstract class WalkingAnimal extends WalkingEntity implements Animal {
             }
         }
 
-        if (Server.getInstance().getTick() % 4 == 0) {
+        if (!MobPlugin.throttle && Server.getInstance().getTick() % 4 == 0) {
             int tickDiff = currentTick - this.lastUpdate;
             this.lastUpdate = currentTick;
             this.entityBaseTick(tickDiff);

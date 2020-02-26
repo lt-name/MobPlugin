@@ -6,6 +6,7 @@ import cn.nukkit.entity.data.ShortEntityData;
 import cn.nukkit.level.format.FullChunk;
 import cn.nukkit.math.Vector3;
 import cn.nukkit.nbt.tag.CompoundTag;
+import nukkitcoders.mobplugin.MobPlugin;
 import nukkitcoders.mobplugin.entities.SwimmingEntity;
 
 public abstract class SwimmingAnimal extends SwimmingEntity implements Animal {
@@ -49,7 +50,7 @@ public abstract class SwimmingAnimal extends SwimmingEntity implements Animal {
             return true;
         }
 
-        if (Server.getInstance().getTick() % 4 == 0) {
+        if (!MobPlugin.throttle && Server.getInstance().getTick() % 4 == 0) {
             int tickDiff = currentTick - this.lastUpdate;
             this.lastUpdate = currentTick;
             this.entityBaseTick(tickDiff);

@@ -35,6 +35,8 @@ public class MobPlugin extends PluginBase implements Listener {
 
     private static MobPlugin instance;
 
+    public static boolean throttle;
+
     public static MobPlugin getInstance() {
         return instance;
     }
@@ -69,6 +71,14 @@ public class MobPlugin extends PluginBase implements Listener {
                 this.getServer().getLogger().notice("Disabling mob/animal spawning from server.properties does not disable spawning in MobPlugin");
             }
         }
+
+        this.getServer().getScheduler().scheduleDelayedRepeatingTask(this, () -> {
+            if (this.getServer().getOnlinePlayers().size() > 30) {
+                MobPlugin.throttle = true;
+            } else {
+                MobPlugin.throttle = false;
+            }
+        }, 2400, 2400, false);
     }
 
     @Override

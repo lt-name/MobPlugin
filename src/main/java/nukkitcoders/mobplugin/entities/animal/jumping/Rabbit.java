@@ -1,12 +1,9 @@
 package nukkitcoders.mobplugin.entities.animal.jumping;
 
 import cn.nukkit.Player;
-import cn.nukkit.Server;
 import cn.nukkit.entity.EntityCreature;
 import cn.nukkit.item.Item;
 import cn.nukkit.level.format.FullChunk;
-import cn.nukkit.level.particle.PunchBlockParticle;
-import cn.nukkit.math.BlockFace;
 import cn.nukkit.nbt.tag.CompoundTag;
 import nukkitcoders.mobplugin.entities.animal.JumpingAnimal;
 import nukkitcoders.mobplugin.utils.Utils;
@@ -87,13 +84,11 @@ public class Rabbit extends JumpingAnimal {
     @Override
     public boolean onUpdate(int currentTick) {
         boolean hasUpdate = super.onUpdate(currentTick);
-        if (Server.getInstance().getTick() % 4 == 0) {
-            try {
-                if (this.isOnGround())
-                    this.level.addParticle(new PunchBlockParticle(this, this.level.getBlock((int) x, (int) y - 1, (int) z), BlockFace.UP));
-            } catch (Exception ignored) {
+        /*try {
+            if (this.isOnGround()) {
+                this.level.addParticle(new PunchBlockParticle(this, this.level.getBlock((int) x, (int) y - 1, (int) z), BlockFace.UP));
             }
-        }
+        } catch (Exception ignored) {}*/
         return hasUpdate;
     }
 }

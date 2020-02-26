@@ -71,9 +71,10 @@ public class EventListener implements Listener {
 
         Item item = ev.getItem();
         Block block = ev.getBlock();
-        Player player = ev.getPlayer();
 
         if (item.getId() != Item.SPAWN_EGG || block.getId() != Block.MONSTER_SPAWNER) return;
+
+        Player player = ev.getPlayer();
 
         BlockEntity blockEntity = block.getLevel().getBlockEntity(block);
         if (blockEntity instanceof BlockEntitySpawner) {
@@ -208,6 +209,7 @@ public class EventListener implements Listener {
 
     @EventHandler(ignoreCancelled = true)
     public void BlockBreakEvent(BlockBreakEvent ev) {
+        if (MobPlugin.throttle) return;
         Block block = ev.getBlock();
         if ((block.getId() == Block.MONSTER_EGG) && block.level.getBlockLightAt((int) block.x, (int) block.y, (int) block.z) < 12 && Utils.rand(1, 5) == 1) {
             Silverfish entity = (Silverfish) Entity.createEntity("Silverfish", block.add(0.5, 0, 0.5));
@@ -222,6 +224,7 @@ public class EventListener implements Listener {
 
     @EventHandler(ignoreCancelled = true)
     public void ProjectileHitEvent(ProjectileHitEvent ev) {
+        if (MobPlugin.throttle) return;
         if (ev.getEntity() instanceof EntityEgg) {
             if (Utils.rand(1, 20) == 5) {
                 Chicken entity = (Chicken) Entity.createEntity("Chicken", ev.getEntity().add(0.5, 1, 0.5));
@@ -244,6 +247,7 @@ public class EventListener implements Listener {
 
     @EventHandler(ignoreCancelled = true)
     public void DataPacketReceiveEvent(DataPacketReceiveEvent ev) {
+        if (MobPlugin.throttle) return;
         if (ev.getPacket() instanceof PlayerInputPacket) {
             PlayerInputPacket ipk = (PlayerInputPacket) ev.getPacket();
             Player p = ev.getPlayer();
@@ -257,6 +261,7 @@ public class EventListener implements Listener {
 
     @EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
     public void PlayerMoveEvent(PlayerMoveEvent ev) {
+        if (MobPlugin.throttle) return;
         Player player = ev.getPlayer();
         if (player.getLevel().getCurrentTick() % 20 == 0) {
             AxisAlignedBB aab = new SimpleAxisAlignedBB(
