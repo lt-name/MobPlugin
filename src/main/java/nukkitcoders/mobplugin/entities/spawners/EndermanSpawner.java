@@ -20,7 +20,7 @@ public class EndermanSpawner extends AbstractEntitySpawner {
     }
 
     public void spawn(Player player, Position pos, Level level) {
-        if (Utils.rand(1, level.getName().equals("nether") ? 10 : 7) != 1 && !level.getName().equals("end")) {
+        if (Utils.rand(1, level.getName().equals("nether") ? 10 : 7) != 1 && !level.getName().equals("the_end")) {
             return;
         }
 
@@ -28,9 +28,9 @@ public class EndermanSpawner extends AbstractEntitySpawner {
         int blockLightLevel = level.getBlockLightAt((int) pos.x, (int) pos.y, (int) pos.z);
 
         if (Block.transparent[blockId]) {
-        } else if (blockLightLevel > 7 && !level.getName().equals("nether") && !level.getName().equals("end")) {
+        } else if (blockLightLevel > 7 && !level.getName().equals("nether") && !level.getName().equals("the_end")) {
         } else if ((pos.y > 255 || (level.getName().equals("nether") && pos.y > 127)) || pos.y < 1 || blockId == Block.AIR) {
-        } else if (MobPlugin.getInstance().isMobSpawningAllowedByTime(level) || level.getName().equals("nether") || level.getName().equals("end")) {
+        } else if (MobPlugin.getInstance().isMobSpawningAllowedByTime(level) || level.getName().equals("nether") || level.getName().equals("the_end")) {
             this.spawnTask.createEntity("Enderman", pos.add(0, 1, 0));
         }
     }
