@@ -1,5 +1,7 @@
 package nukkitcoders.mobplugin.entities.animal.swimming;
 
+import cn.nukkit.Player;
+import cn.nukkit.entity.EntityCreature;
 import cn.nukkit.item.Item;
 import cn.nukkit.level.format.FullChunk;
 import cn.nukkit.nbt.tag.CompoundTag;
@@ -44,5 +46,14 @@ public class Dolphin extends SwimmingAnimal {
     @Override
     public int getKillExperience() {
         return 0;
+    }
+
+    @Override
+    public boolean targetOption(EntityCreature creature, double distance) {
+        if (creature instanceof Player) {
+            Player player = (Player) creature;
+            return player.spawned && player.isAlive() && !player.closed && (player.getInventory().getItemInHand().getId() == Item.RAW_FISH || player.getInventory().getItemInHand().getId() == Item.RAW_SALMON) && distance <= 40;
+        }
+        return false;
     }
 }

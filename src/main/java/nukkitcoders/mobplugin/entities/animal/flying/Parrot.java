@@ -1,5 +1,7 @@
 package nukkitcoders.mobplugin.entities.animal.flying;
 
+import cn.nukkit.Player;
+import cn.nukkit.entity.EntityCreature;
 import cn.nukkit.item.Item;
 import cn.nukkit.level.format.FullChunk;
 import cn.nukkit.nbt.tag.CompoundTag;
@@ -52,5 +54,19 @@ public class Parrot extends FlyingAnimal {
     @Override
     public int getKillExperience() {
         return Utils.rand(1, 3);
+    }
+
+    @Override
+    public boolean targetOption(EntityCreature creature, double distance) {
+        if (creature instanceof Player) {
+            Player player = (Player) creature;
+            return player.spawned && player.isAlive() && !player.closed
+                    && (player.getInventory().getItemInHand().getId() == Item.SEEDS
+                    || player.getInventory().getItemInHand().getId() == Item.BEETROOT_SEEDS
+                    || player.getInventory().getItemInHand().getId() == Item.PUMPKIN_SEEDS
+                    || player.getInventory().getItemInHand().getId() == Item.MELON_SEEDS)
+                    && distance <= 40;
+        }
+        return false;
     }
 }

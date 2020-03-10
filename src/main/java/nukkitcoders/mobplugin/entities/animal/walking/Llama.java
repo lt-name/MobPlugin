@@ -1,5 +1,7 @@
 package nukkitcoders.mobplugin.entities.animal.walking;
 
+import cn.nukkit.Player;
+import cn.nukkit.entity.EntityCreature;
 import cn.nukkit.item.Item;
 import cn.nukkit.level.format.FullChunk;
 import cn.nukkit.nbt.tag.CompoundTag;
@@ -55,5 +57,15 @@ public class Llama extends HorseBase {
         }
 
         return drops.toArray(new Item[0]);
+    }
+
+    @Override
+    public boolean targetOption(EntityCreature creature, double distance) {
+        if (creature instanceof Player) {
+            Player player = (Player) creature;
+            return player.isAlive() && !player.closed && player.getInventory().getItemInHand().getId() == Item.WHEAT && distance <= 40;
+        }
+
+        return false;
     }
 }
