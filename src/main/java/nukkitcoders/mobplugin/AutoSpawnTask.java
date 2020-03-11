@@ -48,7 +48,7 @@ public class AutoSpawnTask implements Runnable {
 
     @Override
     public void run() {
-        if (plugin.getServer().getOnlinePlayers().size() > 0) {
+        if (!plugin.getServer().getOnlinePlayers().isEmpty()) {
             for (IEntitySpawner spawner : entitySpawners) {
                 spawner.spawn();
             }

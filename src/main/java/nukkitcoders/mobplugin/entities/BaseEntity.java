@@ -182,6 +182,10 @@ public abstract class BaseEntity extends EntityCreature implements EntityAgeable
 
     @Override
     public boolean move(double dx, double dy, double dz) {
+        if (Math.abs(dy) > 20) {
+            return false;
+        }
+
         double movX = dx * moveMultifier;
         double movY = dy;
         double movZ = dz * moveMultifier;
