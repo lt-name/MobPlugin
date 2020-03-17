@@ -209,7 +209,7 @@ public class EventListener implements Listener {
 
     @EventHandler(ignoreCancelled = true)
     public void BlockBreakEvent(BlockBreakEvent ev) {
-        if (MobPlugin.throttle) return;
+        //if (MobPlugin.throttle) return;
         Block block = ev.getBlock();
         if ((block.getId() == Block.MONSTER_EGG) && block.level.getBlockLightAt((int) block.x, (int) block.y, (int) block.z) < 12 && Utils.rand(1, 5) == 1) {
             Silverfish entity = (Silverfish) Entity.createEntity("Silverfish", block.add(0.5, 0, 0.5));
@@ -224,7 +224,7 @@ public class EventListener implements Listener {
 
     @EventHandler(ignoreCancelled = true)
     public void ProjectileHitEvent(ProjectileHitEvent ev) {
-        if (MobPlugin.throttle) return;
+        //if (MobPlugin.throttle) return;
         if (ev.getEntity() instanceof EntityEgg) {
             if (Utils.rand(1, 20) == 5) {
                 Chicken entity = (Chicken) Entity.createEntity("Chicken", ev.getEntity().add(0.5, 1, 0.5));

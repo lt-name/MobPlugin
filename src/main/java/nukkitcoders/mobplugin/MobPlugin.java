@@ -67,18 +67,18 @@ public class MobPlugin extends PluginBase implements Listener {
         if (config.spawnDelay > 0) {
             this.getServer().getScheduler().scheduleDelayedRepeatingTask(this, new AutoSpawnTask(this), config.spawnDelay, config.spawnDelay);
 
-            if (!this.getServer().getPropertyBoolean("spawn-animals") || !this.getServer().getPropertyBoolean("spawn-mobs")) {
+            /*if (!this.getServer().getPropertyBoolean("spawn-animals") || !this.getServer().getPropertyBoolean("spawn-mobs")) {
                 this.getServer().getLogger().notice("Disabling mob/animal spawning from server.properties does not disable spawning in MobPlugin");
-            }
+            }*/
         }
 
         this.getServer().getScheduler().scheduleDelayedRepeatingTask(this, () -> {
-            if (this.getServer().getOnlinePlayers().size() > 30) {
+            if (this.getServer().getOnlinePlayers().size() > 40) {
                 MobPlugin.throttle = true;
             } else {
                 MobPlugin.throttle = false;
             }
-        }, 2400, 2400, false);
+        }, 1200, 1200, false);
     }
 
     @Override
