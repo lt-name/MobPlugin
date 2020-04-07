@@ -73,7 +73,7 @@ public class MobPlugin extends PluginBase implements Listener {
         }
 
         this.getServer().getScheduler().scheduleDelayedRepeatingTask(this, () -> {
-            if (this.getServer().getOnlinePlayers().size() > 40) {
+            if (this.getServer().getOnlinePlayers().size() > 30) {
                 MobPlugin.throttle = true;
             } else {
                 MobPlugin.throttle = false;

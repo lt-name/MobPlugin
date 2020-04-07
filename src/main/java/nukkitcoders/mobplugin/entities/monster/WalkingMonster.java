@@ -149,7 +149,7 @@ public abstract class WalkingMonster extends WalkingEntity implements Monster {
             return true;
         }
 
-        if (Server.getInstance().getTick() % 4 == 0) {
+        if (Server.getInstance().getTick() % 2 == 0) {
             int tickDiff = currentTick - this.lastUpdate;
             this.lastUpdate = currentTick;
             this.entityBaseTick(tickDiff);

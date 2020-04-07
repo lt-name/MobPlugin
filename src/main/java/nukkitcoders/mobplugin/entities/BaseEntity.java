@@ -142,6 +142,12 @@ public abstract class BaseEntity extends EntityCreature implements EntityAgeable
     public boolean entityBaseTick(int tickDiff) {
         if (Server.getInstance().getTick() % 20 == 0) {
             super.entityBaseTick(tickDiff);
+        } else {
+            if (this.attackTime > 0) {
+                this.attackTime -= tickDiff;
+            }
+            this.age += tickDiff;
+            this.ticksLived += tickDiff;
         }
 
         if (this.canDespawn()) {

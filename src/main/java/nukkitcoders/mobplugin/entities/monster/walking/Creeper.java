@@ -116,7 +116,7 @@ public class Creeper extends WalkingMonster implements EntityExplosive {
         int tickDiff = currentTick - this.lastUpdate;
         this.lastUpdate = currentTick;
 
-        if (Server.getInstance().getTick() % 4 == 0) {
+        if (Server.getInstance().getTick() % 2 == 0) {
             this.entityBaseTick(tickDiff);
 
             if (!this.isMovement()) {
