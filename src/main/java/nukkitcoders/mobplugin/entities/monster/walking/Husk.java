@@ -63,7 +63,7 @@ public class Husk extends WalkingMonster implements EntityAgeable, EntitySmite {
             pk.eid = this.getId();
             pk.event = 4;
             Server.broadcastPacket(this.getViewers().values(), pk);
-            player.addEffect(Effect.getEffectByName("HUNGER").setDuration(140));
+            player.addEffect(Effect.getEffect(Effect.HUNGER).setDuration(140));
         }
     }
 
