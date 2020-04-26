@@ -24,7 +24,7 @@ public abstract class JumpingAnimal extends JumpingEntity implements Animal {
             return true;
         }
 
-        if (!MobPlugin.throttle && Server.getInstance().getTick() % 4 == 0) {
+        if (!MobPlugin.throttle && Server.getInstance().getTick() % 2 == 0) {
             int tickDiff = currentTick - this.lastUpdate;
             this.lastUpdate = currentTick;
             this.entityBaseTick(tickDiff);

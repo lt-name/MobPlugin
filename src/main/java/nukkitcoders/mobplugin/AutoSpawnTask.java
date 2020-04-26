@@ -62,7 +62,7 @@ public class AutoSpawnTask implements Runnable {
         entitySpawners.add(new CodSpawner(this));
         entitySpawners.add(new CowSpawner(this));
         entitySpawners.add(new CreeperSpawner(this));
-        entitySpawners.add(new DolphinSpawner(this));
+        //entitySpawners.add(new DolphinSpawner(this));
         //entitySpawners.add(new DonkeySpawner(this));
         entitySpawners.add(new EndermanSpawner(this));
         entitySpawners.add(new GhastSpawner(this));
@@ -83,8 +83,8 @@ public class AutoSpawnTask implements Runnable {
         entitySpawners.add(new SpiderSpawner(this));
         entitySpawners.add(new StraySpawner(this));
         entitySpawners.add(new SquidSpawner(this));
-        entitySpawners.add(new TropicalFishSpawner(this));
-        entitySpawners.add(new TurtleSpawner(this));
+        //entitySpawners.add(new TropicalFishSpawner(this));
+        //entitySpawners.add(new TurtleSpawner(this));
         entitySpawners.add(new WitchSpawner(this));
         entitySpawners.add(new WitherSkeletonSpawner(this));
         entitySpawners.add(new WolfSpawner(this));
@@ -99,7 +99,7 @@ public class AutoSpawnTask implements Runnable {
         maxSpawns.put(Cod.NETWORK_ID, this.pluginConfig.getInt("autospawn.cod"));
         maxSpawns.put(Cow.NETWORK_ID, this.pluginConfig.getInt("autospawn.cow"));
         maxSpawns.put(Creeper.NETWORK_ID, this.pluginConfig.getInt("autospawn.creeper"));
-        maxSpawns.put(Dolphin.NETWORK_ID, this.pluginConfig.getInt("autospawn.dolphin"));
+        //maxSpawns.put(Dolphin.NETWORK_ID, this.pluginConfig.getInt("autospawn.dolphin"));
         //maxSpawns.put(Donkey.NETWORK_ID, this.pluginConfig.getInt("autospawn.donkey"));
         maxSpawns.put(Enderman.NETWORK_ID, this.pluginConfig.getInt("autospawn.enderman"));
         maxSpawns.put(Ghast.NETWORK_ID, this.pluginConfig.getInt("autospawn.ghast"));
@@ -120,8 +120,8 @@ public class AutoSpawnTask implements Runnable {
         maxSpawns.put(Spider.NETWORK_ID, this.pluginConfig.getInt("autospawn.spider"));
         maxSpawns.put(Squid.NETWORK_ID, this.pluginConfig.getInt("autospawn.squid"));
         maxSpawns.put(Stray.NETWORK_ID, this.pluginConfig.getInt("autospawn.stray"));
-        maxSpawns.put(TropicalFish.NETWORK_ID, this.pluginConfig.getInt("autospawn.tropicalfish"));
-        maxSpawns.put(Turtle.NETWORK_ID, this.pluginConfig.getInt("autospawn.turtle"));
+        //maxSpawns.put(TropicalFish.NETWORK_ID, this.pluginConfig.getInt("autospawn.tropicalfish"));
+        //maxSpawns.put(Turtle.NETWORK_ID, this.pluginConfig.getInt("autospawn.turtle"));
         maxSpawns.put(Witch.NETWORK_ID, this.pluginConfig.getInt("autospawn.witch"));
         maxSpawns.put(WitherSkeleton.NETWORK_ID, this.pluginConfig.getInt("autospawn.witherskeleton"));
         maxSpawns.put(Wolf.NETWORK_ID, this.pluginConfig.getInt("autospawn.wolf"));

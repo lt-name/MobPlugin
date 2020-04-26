@@ -140,7 +140,7 @@ public abstract class BaseEntity extends EntityCreature implements EntityAgeable
 
     @Override
     public boolean entityBaseTick(int tickDiff) {
-        if (Server.getInstance().getTick() % 20 == 0) {
+        if (Server.getInstance().getTick() % 10 == 0) {
             super.entityBaseTick(tickDiff);
         } else {
             if (this.attackTime > 0) {
