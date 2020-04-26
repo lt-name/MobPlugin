@@ -9,7 +9,7 @@ entities:
   # how often the despawn task should run
   # in ticks, 20 ticks = 1 second
   # use 0 to disable entity despawning
-  despawn-ticks: 6000
+  despawn-ticks: 12000
   # do not spawn entities in these worlds
   worlds-spawning-disabled: "exampleworld1, exampleworld2"
 
