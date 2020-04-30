@@ -64,6 +64,10 @@ public abstract class SwimmingAnimal extends SwimmingEntity implements Animal {
                     this.z = this.lastZ;
                 }
             }
+        } else {
+            int tickDiff = currentTick - this.lastUpdate;
+            this.lastUpdate = currentTick;
+            this.entityBaseTick(tickDiff);
         }
         return true;
     }

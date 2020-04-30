@@ -99,6 +99,9 @@ public abstract class WalkingAnimal extends WalkingEntity implements Animal {
                 }
             }
         } else {
+            int tickDiff = currentTick - this.lastUpdate;
+            this.lastUpdate = currentTick;
+            this.entityBaseTick(tickDiff);
             this.updateMovementLite();
         }
         return true;

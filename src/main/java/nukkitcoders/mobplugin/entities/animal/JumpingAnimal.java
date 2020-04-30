@@ -41,6 +41,9 @@ public abstract class JumpingAnimal extends JumpingEntity implements Animal {
                 this.moveTime = 0;
             }
         } else {
+            int tickDiff = currentTick - this.lastUpdate;
+            this.lastUpdate = currentTick;
+            this.entityBaseTick(tickDiff);
             this.updateMovementLite();
         }
         return true;

@@ -41,6 +41,10 @@ public abstract class FlyingAnimal extends FlyingEntity implements EntityAgeable
             } else if (target != null && this.distanceSquared(target) <= 1) {
                 this.moveTime = 0;
             }
+        } else {
+            int tickDiff = currentTick - this.lastUpdate;
+            this.lastUpdate = currentTick;
+            this.entityBaseTick(tickDiff);
         }
         return true;
     }
