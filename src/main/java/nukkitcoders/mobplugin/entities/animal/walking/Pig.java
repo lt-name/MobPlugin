@@ -251,4 +251,20 @@ public class Pig extends WalkingAnimal implements EntityRideable {
             super.onStruckByLightning(entity);
         }
     }
+
+    @Override
+    public void updatePassengers() {
+        if (this.passengers.isEmpty()) {
+            return;
+        }
+
+        for (Entity passenger : new ArrayList<>(this.passengers)) {
+            if (!passenger.isAlive() || this.isInsideOfWater()) {
+                dismountEntity(passenger);
+                continue;
+            }
+
+            updatePassengerPosition(passenger);
+        }
+    }
 }

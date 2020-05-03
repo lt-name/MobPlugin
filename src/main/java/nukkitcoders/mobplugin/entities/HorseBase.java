@@ -14,6 +14,7 @@ import nukkitcoders.mobplugin.entities.animal.WalkingAnimal;
 import nukkitcoders.mobplugin.entities.animal.walking.Donkey;
 import nukkitcoders.mobplugin.utils.Utils;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Objects;
 
@@ -82,12 +83,6 @@ public class HorseBase extends WalkingAnimal implements EntityRideable {
     }
 
     @Override
-    public boolean entityBaseTick(int tickDiff) {
-        updatePassengers();
-        return super.entityBaseTick(tickDiff);
-    }
-
-    @Override
     public boolean onUpdate(int currentTick) {
         Iterator<Entity> linkedIterator = this.passengers.iterator();
 
@@ -146,5 +141,21 @@ public class HorseBase extends WalkingAnimal implements EntityRideable {
         }
 
         return super.canDespawn();
+    }
+
+    @Override
+    public void updatePassengers() {
+        if (this.passengers.isEmpty()) {
+            return;
+        }
+
+        for (Entity passenger : new ArrayList<>(this.passengers)) {
+            if (!passenger.isAlive() || this.isInsideOfWater()) {
+                dismountEntity(passenger);
+                continue;
+            }
+
+            updatePassengerPosition(passenger);
+        }
     }
 }
