@@ -1,13 +1,10 @@
 package nukkitcoders.mobplugin.utils;
 
 import cn.nukkit.blockentity.BlockEntity;
-import cn.nukkit.blockentity.BlockEntityChest;
-import cn.nukkit.level.Sound;
-import cn.nukkit.level.Position;
-import cn.nukkit.level.Level;
-import cn.nukkit.level.Explosion;
+import cn.nukkit.blockentity.BlockEntityShulkerBox;
+import cn.nukkit.inventory.InventoryHolder;
+import cn.nukkit.level.*;
 import cn.nukkit.block.Block;
-import cn.nukkit.block.BlockAir;
 import cn.nukkit.block.BlockID;
 import cn.nukkit.block.BlockTNT;
 import cn.nukkit.entity.Entity;
@@ -129,17 +126,20 @@ public class FireBallExplosion extends Explosion {
                 entity.setMotion(motion.multiply(impact));
             }
         }
-        ItemBlock air = new ItemBlock(new BlockAir());
+        ItemBlock air = new ItemBlock(Block.get(0));
+        BlockEntity container;
         for (Block block : this.affectedBlocks) {
             if (block.getId() == Block.TNT) {
                 ((BlockTNT) block).prime(Utils.rand(10, 30), this.what instanceof Entity ? (Entity) this.what : null);
-            } else if (block.getId() == Block.CHEST || block.getId() == Block.TRAPPED_CHEST) {
-                BlockEntity chest = block.getLevel().getBlockEntity(block);
-                if (chest != null) {
-                    for (Item drop : ((BlockEntityChest) chest).getInventory().getContents().values()) {
+            } else if ((container = block.getLevel().getBlockEntity(block)) instanceof InventoryHolder) {
+                if (container instanceof BlockEntityShulkerBox) {
+                    this.level.dropItem(block.add(0.5, 0.5, 0.5), block.toItem());
+                    ((InventoryHolder) container).getInventory().clearAll();
+                } else {
+                    for (Item drop : ((InventoryHolder) container).getInventory().getContents().values()) {
                         this.level.dropItem(block.add(0.5, 0.5, 0.5), drop);
                     }
-                    ((BlockEntityChest) chest).getInventory().clearAll();
+                    ((InventoryHolder) container).getInventory().clearAll();
                 }
             } else if (Math.random() * 100 < yield) {
                 for (Item drop : block.getDrops(air)) {

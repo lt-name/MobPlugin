@@ -76,16 +76,16 @@ public abstract class RouteFinder {
         try {
             lock.writeLock().lock();
             nodes.add(node);
-        }finally {
+        } finally {
             lock.writeLock().unlock();
         }
     }
 
     public void addNode(ArrayList<Node> node) {
-        try{
+        try {
             lock.writeLock().lock();
             nodes.addAll(node);
-        }finally {
+        } finally {
             lock.writeLock().unlock();
         }
 
@@ -96,13 +96,13 @@ public abstract class RouteFinder {
     }
 
     public Node getCurrentNode() {
-        try{
+        try {
             lock.readLock().lock();
             if (this.hasCurrentNode()) {
                 return nodes.get(current);
             }
             return null;
-        }finally {
+        } finally {
             lock.readLock().unlock();
         }
 
@@ -125,26 +125,26 @@ public abstract class RouteFinder {
     }
 
     public boolean hasArrivedNode(Vector3 vec) {
-        try{
+        try {
             lock.readLock().lock();
             if (this.hasNext() &&  this.getCurrentNode().getVector3()!=null) {
                 Vector3 cur = this.getCurrentNode().getVector3();
                 return vec.getX() == cur.getX() && vec.getZ() == cur.getZ();
             }
             return false;
-        }finally {
+        } finally {
             lock.readLock().unlock();
         }
     }
 
     public void resetNodes() {
-        try{
+        try {
             this.lock.writeLock().lock();
             this.nodes.clear();
             this.current = 0;
             this.interrupt = false;
             this.destination = null;
-        }finally {
+        } finally {
             this.lock.writeLock().unlock();
         }
     }
@@ -157,20 +157,22 @@ public abstract class RouteFinder {
     }
 
     public boolean hasNext() {
-        if (this.current + 1 < nodes.size()) {
-            return this.nodes.get(this.current + 1) != null;
-        }
+        try {
+            if (this.current + 1 < nodes.size()) {
+                return this.nodes.get(this.current + 1) != null;
+            }
+        } catch (Exception ignore) {}
         return false;
     }
 
     public Vector3 next() {
-        try{
+        try {
             lock.readLock().lock();
             if (this.hasNext()) {
                 return this.nodes.get(++current).getVector3();
             }
             return null;
-        }finally {
+        } finally {
             lock.readLock().unlock();
         }
 

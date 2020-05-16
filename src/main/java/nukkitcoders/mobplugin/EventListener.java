@@ -3,7 +3,6 @@ package nukkitcoders.mobplugin;
 import cn.nukkit.Player;
 import cn.nukkit.Server;
 import cn.nukkit.block.Block;
-import cn.nukkit.block.BlockAir;
 import cn.nukkit.blockentity.BlockEntity;
 import cn.nukkit.entity.Entity;
 import cn.nukkit.entity.mob.EntityWither;
@@ -130,8 +129,8 @@ public class EventListener implements Listener {
 
                 if (event.isCancelled()) return;
 
-                block.level.setBlock(block.add(0, -1, 0), new BlockAir());
-                block.level.setBlock(block.add(0, -2, 0), new BlockAir());
+                block.level.setBlock(block.add(0, -1, 0), Block.get(0));
+                block.level.setBlock(block.add(0, -2, 0), Block.get(0));
 
                 Entity.createEntity("SnowGolem", block.add(0.5, -1, 0.5)).spawnToAll();
                 ev.setCancelled(true);
@@ -157,10 +156,10 @@ public class EventListener implements Listener {
 
                 if (event.isCancelled()) return;
 
-                block.level.setBlock(first, new BlockAir());
-                block.level.setBlock(second, new BlockAir());
-                block.level.setBlock(block, new BlockAir());
-                block.level.setBlock(block.add(0, 1, 0), new BlockAir());
+                block.level.setBlock(first, Block.get(0));
+                block.level.setBlock(second, Block.get(0));
+                block.level.setBlock(block, Block.get(0));
+                block.level.setBlock(block.add(0, 1, 0), Block.get(0));
 
                 Entity.createEntity("IronGolem", block.add(0.5, -1, 0.5)).spawnToAll();
                 ev.setCancelled(true);
@@ -182,12 +181,12 @@ public class EventListener implements Listener {
                     return;
                 }
 
-                block.getLevel().setBlock(first, new BlockAir());
-                block.getLevel().setBlock(second, new BlockAir());
-                block.getLevel().setBlock(first2, new BlockAir());
-                block.getLevel().setBlock(second2, new BlockAir());
-                block.getLevel().setBlock(block, new BlockAir());
-                block.getLevel().setBlock(block.add(0, 1, 0), new BlockAir());
+                block.getLevel().setBlock(first, Block.get(0));
+                block.getLevel().setBlock(second, Block.get(0));
+                block.getLevel().setBlock(first2, Block.get(0));
+                block.getLevel().setBlock(second2, Block.get(0));
+                block.getLevel().setBlock(block, Block.get(0));
+                block.getLevel().setBlock(block.add(0, 1, 0), Block.get(0));
 
                 CreatureSpawnEvent event = new CreatureSpawnEvent(EntityWither.NETWORK_ID, block, null, CreatureSpawnEvent.SpawnReason.BUILD_WITHER);
                 Server.getInstance().getPluginManager().callEvent(event);

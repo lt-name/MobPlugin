@@ -74,8 +74,8 @@ public class BlockEntitySpawner extends BlockEntitySpawnable {
         }
 
         this.spawnRange = this.namedTag.getShort(TAG_SPAWN_RANGE);
-        this.minSpawnDelay = this.namedTag.getInt(TAG_MIN_SPAWN_DELAY);
-        this.maxSpawnDelay = this.namedTag.getInt(TAG_MAX_SPAWN_DELAY);
+        this.minSpawnDelay = this.namedTag.getShort(TAG_MIN_SPAWN_DELAY);
+        this.maxSpawnDelay = this.namedTag.getShort(TAG_MAX_SPAWN_DELAY);
         this.maxNearbyEntities = this.namedTag.getShort(TAG_MAX_NEARBY_ENTITIES);
         this.requiredPlayerRange = this.namedTag.getShort(TAG_REQUIRED_PLAYER_RANGE);
 
