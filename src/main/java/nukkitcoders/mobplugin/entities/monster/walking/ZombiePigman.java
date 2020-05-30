@@ -72,7 +72,7 @@ public class ZombiePigman extends WalkingMonster implements EntitySmite {
     @Override
     public boolean targetOption(EntityCreature creature, double distance) {
         if (distance <= 100 && this.isAngry() && creature instanceof ZombiePigman && !((ZombiePigman) creature).isAngry()) {
-            ((ZombiePigman) creature).setAngry(1000);
+            ((ZombiePigman) creature).setAngry(2400);
         }
         return this.isAngry() && super.targetOption(creature, distance);
     }
@@ -113,7 +113,7 @@ public class ZombiePigman extends WalkingMonster implements EntitySmite {
 
         if (!ev.isCancelled() && ev instanceof EntityDamageByEntityEvent) {
             if (((EntityDamageByEntityEvent) ev).getDamager() instanceof Player) {
-                this.setAngry(1000);
+                this.setAngry(2400);
             }
         }
 

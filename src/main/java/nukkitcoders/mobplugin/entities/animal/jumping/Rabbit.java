@@ -80,15 +80,4 @@ public class Rabbit extends JumpingAnimal {
     public int getKillExperience() {
         return this.isBaby() ? 0 : Utils.rand(1, 3);
     }
-
-    @Override
-    public boolean onUpdate(int currentTick) {
-        boolean hasUpdate = super.onUpdate(currentTick);
-        /*try {
-            if (this.isOnGround()) {
-                this.level.addParticle(new PunchBlockParticle(this, this.level.getBlock((int) x, (int) y - 1, (int) z), BlockFace.UP));
-            }
-        } catch (Exception ignored) {}*/
-        return hasUpdate;
-    }
 }

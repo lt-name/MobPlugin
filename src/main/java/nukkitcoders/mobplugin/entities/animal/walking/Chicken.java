@@ -20,7 +20,7 @@ public class Chicken extends WalkingAnimal {
     public static final int NETWORK_ID = 10;
 
     private int EggLayTime = this.getRandomEggLayTime();
-    private boolean IsChickenJockey = false;
+    private boolean isChickenJockey = false;
 
     public Chicken(FullChunk chunk, CompoundTag nbt) {
         super(chunk, nbt);
@@ -60,7 +60,7 @@ public class Chicken extends WalkingAnimal {
         } else {
             this.EggLayTime = this.getRandomEggLayTime();
         }
-        this.IsChickenJockey = this.namedTag.contains("IsChickenJockey") && this.namedTag.getBoolean("IsChickenJockey");
+        this.isChickenJockey = this.namedTag.contains("IsChickenJockey") && this.namedTag.getBoolean("IsChickenJockey");
 
         this.setMaxHealth(4);
     }
@@ -121,7 +121,7 @@ public class Chicken extends WalkingAnimal {
     public void saveNBT() {
         super.saveNBT();
         this.namedTag.putInt("EggLayTime", this.EggLayTime);
-        this.namedTag.putBoolean("IsChickenJockey", this.IsChickenJockey);
+        this.namedTag.putBoolean("IsChickenJockey", this.isChickenJockey);
     }
 
     @Override
@@ -158,10 +158,10 @@ public class Chicken extends WalkingAnimal {
     }
 
     public boolean isChickenJockey() {
-        return IsChickenJockey;
+        return isChickenJockey;
     }
 
     public void setChickenJockey(boolean chickenJockey) {
-        IsChickenJockey = chickenJockey;
+        isChickenJockey = chickenJockey;
     }
 }

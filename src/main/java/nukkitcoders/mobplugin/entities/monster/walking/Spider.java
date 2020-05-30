@@ -2,7 +2,7 @@ package nukkitcoders.mobplugin.entities.monster.walking;
 
 import cn.nukkit.Player;
 import cn.nukkit.block.Block;
-import cn.nukkit.block.BlockLiquid;
+import cn.nukkit.block.BlockID;
 import cn.nukkit.entity.Entity;
 import cn.nukkit.entity.EntityArthropod;
 import cn.nukkit.entity.EntityCreature;
@@ -61,9 +61,11 @@ public class Spider extends WalkingMonster implements EntityArthropod {
     @Override
     protected boolean checkJump(double dx, double dz) {
         if (this.motionY == 0.16) {
-            return this.level.getBlock(new Vector3(NukkitMath.floorDouble(this.x), (int) this.y, NukkitMath.floorDouble(this.z))) instanceof BlockLiquid;
+            int b = level.getBlockIdAt(NukkitMath.floorDouble(this.x), (int) this.y, NukkitMath.floorDouble(this.z));
+            return b == BlockID.WATER || b == BlockID.STILL_WATER;
         } else {
-            if (this.level.getBlock(new Vector3(NukkitMath.floorDouble(this.x), (int) (this.y + 0.8), NukkitMath.floorDouble(this.z))) instanceof BlockLiquid) {
+            int b = level.getBlockIdAt(NukkitMath.floorDouble(this.x), (int) (this.y + 0.8), NukkitMath.floorDouble(this.z));
+            if (b == BlockID.WATER || b == BlockID.STILL_WATER) {
                 this.motionY = 0.16;
                 return true;
             }
@@ -136,7 +138,7 @@ public class Spider extends WalkingMonster implements EntityArthropod {
 
         if (!ev.isCancelled() && ev instanceof EntityDamageByEntityEvent) {
             if (((EntityDamageByEntityEvent) ev).getDamager() instanceof Player) {
-                this.setAngry(1000);
+                this.setAngry(2400);
             }
         }
 
@@ -189,7 +191,7 @@ public class Spider extends WalkingMonster implements EntityArthropod {
     @Override
     public boolean targetOption(EntityCreature creature, double distance) {
         if (distance <= 100 && this.isAngry() && creature instanceof Spider && !((Spider) creature).isAngry()) {
-            ((Spider) creature).setAngry(1000);
+            ((Spider) creature).setAngry(2400);
         }
         return this.isAngry() && super.targetOption(creature, distance);
     }

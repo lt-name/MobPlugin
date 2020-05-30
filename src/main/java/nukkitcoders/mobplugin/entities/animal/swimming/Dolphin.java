@@ -22,6 +22,11 @@ public class Dolphin extends SwimmingAnimal {
     }
 
     @Override
+    public double getSpeed() {
+        return 1.2;
+    }
+
+    @Override
     public void initEntity() {
         super.initEntity();
 
