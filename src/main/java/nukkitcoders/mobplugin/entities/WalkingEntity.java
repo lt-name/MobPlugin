@@ -107,12 +107,11 @@ public abstract class WalkingEntity extends BaseEntity {
         }
 
         Block that = this.getLevel().getBlock(new Vector3(NukkitMath.floorDouble(this.x + dx), (int) this.y, NukkitMath.floorDouble(this.z + dz)));
-        if (this.getDirection() == null) {
-            return false;
-        }
-
         Block block = that.getSide(this.getHorizontalFacing());
-        if (!block.canPassThrough() && block.up().canPassThrough() && that.up(2).canPassThrough()) {
+        Block down = block.down();
+        if (!down.isSolid() && !block.isSolid() && !down.down().isSolid()) {
+            this.stayTime = 10;
+        } else if (!block.canPassThrough() && block.up().canPassThrough() && that.up(2).canPassThrough()) {
             if (block instanceof BlockFence || block instanceof BlockFenceGate) {
                 this.motionY = 0.08;
             } else if (this.motionY <= 0.32) {

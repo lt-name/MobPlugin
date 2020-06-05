@@ -5,7 +5,6 @@ import cn.nukkit.Server;
 import cn.nukkit.block.Block;
 import cn.nukkit.blockentity.BlockEntity;
 import cn.nukkit.entity.Entity;
-import cn.nukkit.entity.mob.EntityWither;
 import cn.nukkit.entity.projectile.EntityEgg;
 import cn.nukkit.entity.projectile.EntityEnderPearl;
 import cn.nukkit.event.EventHandler;
@@ -13,7 +12,6 @@ import cn.nukkit.event.EventPriority;
 import cn.nukkit.event.Listener;
 import cn.nukkit.event.block.BlockBreakEvent;
 import cn.nukkit.event.block.BlockPlaceEvent;
-import cn.nukkit.event.entity.CreatureSpawnEvent;
 import cn.nukkit.event.entity.EntityDamageByEntityEvent;
 import cn.nukkit.event.entity.EntityDeathEvent;
 import cn.nukkit.event.entity.ProjectileHitEvent;
@@ -21,6 +19,7 @@ import cn.nukkit.event.player.PlayerInteractEvent;
 import cn.nukkit.event.player.PlayerMoveEvent;
 import cn.nukkit.event.server.DataPacketReceiveEvent;
 import cn.nukkit.item.Item;
+import cn.nukkit.level.Position;
 import cn.nukkit.math.AxisAlignedBB;
 import cn.nukkit.math.BlockFace;
 import cn.nukkit.math.SimpleAxisAlignedBB;
@@ -36,6 +35,7 @@ import nukkitcoders.mobplugin.entities.block.BlockEntitySpawner;
 import nukkitcoders.mobplugin.entities.monster.walking.Enderman;
 import nukkitcoders.mobplugin.entities.monster.walking.Silverfish;
 import nukkitcoders.mobplugin.event.entity.SpawnGolemEvent;
+import nukkitcoders.mobplugin.event.entity.SpawnWitherEvent;
 import nukkitcoders.mobplugin.event.spawner.SpawnerChangeTypeEvent;
 import nukkitcoders.mobplugin.event.spawner.SpawnerCreateEvent;
 import nukkitcoders.mobplugin.utils.Utils;
@@ -123,16 +123,18 @@ public class EventListener implements Listener {
         if (block.getId() == Block.JACK_O_LANTERN || block.getId() == Block.PUMPKIN) {
             if (block.getSide(BlockFace.DOWN).getId() == Item.SNOW_BLOCK && block.getSide(BlockFace.DOWN, 2).getId() == Item.SNOW_BLOCK) {
 
-                SpawnGolemEvent event = new SpawnGolemEvent(player, block.add(0.5, -1, 0.5), SpawnGolemEvent.GolemType.SNOW_GOLEM);
-
+                Position pos = block.add(0.5, -1, 0.5);
+                SpawnGolemEvent event = new SpawnGolemEvent(player, pos, SpawnGolemEvent.GolemType.SNOW_GOLEM);
                 Server.getInstance().getPluginManager().callEvent(event);
 
-                if (event.isCancelled()) return;
+                if (event.isCancelled()) {
+                    return;
+                }
 
                 block.level.setBlock(block.add(0, -1, 0), Block.get(0));
                 block.level.setBlock(block.add(0, -2, 0), Block.get(0));
 
-                Entity.createEntity("SnowGolem", block.add(0.5, -1, 0.5)).spawnToAll();
+                Entity.createEntity("SnowGolem", pos).spawnToAll();
                 ev.setCancelled(true);
                 if (player.isSurvival()) player.getInventory().removeItem(Item.get(block.getId()));
             } else if (block.getSide(BlockFace.DOWN).getId() == Item.IRON_BLOCK && block.getSide(BlockFace.DOWN, 2).getId() == Item.IRON_BLOCK) {
@@ -150,18 +152,20 @@ public class EventListener implements Listener {
 
                 if (second == null || first == null) return;
 
-                SpawnGolemEvent event = new SpawnGolemEvent(player, block.add(0.5, -1, 0.5), SpawnGolemEvent.GolemType.IRON_GOLEM);
-
+                Position pos = block.add(0.5, -1, 0.5);
+                SpawnGolemEvent event = new SpawnGolemEvent(player, pos, SpawnGolemEvent.GolemType.IRON_GOLEM);
                 Server.getInstance().getPluginManager().callEvent(event);
 
-                if (event.isCancelled()) return;
+                if (event.isCancelled()) {
+                    return;
+                }
 
                 block.level.setBlock(first, Block.get(0));
                 block.level.setBlock(second, Block.get(0));
                 block.level.setBlock(block, Block.get(0));
-                block.level.setBlock(block.add(0, 1, 0), Block.get(0));
+                block.level.setBlock(block.add(0, -1, 0), Block.get(0));
 
-                Entity.createEntity("IronGolem", block.add(0.5, -1, 0.5)).spawnToAll();
+                Entity.createEntity("IronGolem", pos).spawnToAll();
                 ev.setCancelled(true);
                 if (player.isSurvival()) player.getInventory().removeItem(Item.get(removeId));
             }
@@ -181,27 +185,29 @@ public class EventListener implements Listener {
                     return;
                 }
 
-                block.getLevel().setBlock(first, Block.get(0));
-                block.getLevel().setBlock(second, Block.get(0));
-                block.getLevel().setBlock(first2, Block.get(0));
-                block.getLevel().setBlock(second2, Block.get(0));
-                block.getLevel().setBlock(block, Block.get(0));
-                block.getLevel().setBlock(block.add(0, 1, 0), Block.get(0));
-
-                CreatureSpawnEvent event = new CreatureSpawnEvent(EntityWither.NETWORK_ID, block, null, CreatureSpawnEvent.SpawnReason.BUILD_WITHER);
+                Position pos = block.add(0.5, -1, 0.5);
+                SpawnWitherEvent event = new SpawnWitherEvent(player, pos);
                 Server.getInstance().getPluginManager().callEvent(event);
 
                 if (event.isCancelled()) {
                     return;
                 }
 
+                block.getLevel().setBlock(first, Block.get(0));
+                block.getLevel().setBlock(second, Block.get(0));
+                block.getLevel().setBlock(first2, Block.get(0));
+                block.getLevel().setBlock(second2, Block.get(0));
+                block.getLevel().setBlock(block, Block.get(0));
+                block.getLevel().setBlock(block.add(0, -1, 0), Block.get(0));
+
                 if (!player.isCreative()) {
                     item.setCount(item.getCount() - 1);
                     player.getInventory().setItemInHand(item);
                 }
 
-                Entity.createEntity("Wither", block.add(0.5, -1, 0.5)).spawnToAll();
+                Entity.createEntity("Wither", pos).spawnToAll();
                 block.getLevel().addSound(block, cn.nukkit.level.Sound.MOB_WITHER_SPAWN);
+                ev.setCancelled(true);
             }
         }
     }
