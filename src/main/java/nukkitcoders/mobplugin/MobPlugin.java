@@ -25,6 +25,7 @@ import nukkitcoders.mobplugin.entities.monster.swimming.ElderGuardian;
 import nukkitcoders.mobplugin.entities.monster.swimming.Guardian;
 import nukkitcoders.mobplugin.entities.monster.walking.*;
 import nukkitcoders.mobplugin.entities.projectile.*;
+import nukkitcoders.mobplugin.utils.Utils;
 
 /**
  * @author <a href="mailto:kniffman@googlemail.com">Michael Gertz (kniffo80)</a>
@@ -281,6 +282,6 @@ public class MobPlugin extends PluginBase implements Listener {
 
     public boolean shouldMobBurn(Level level, BaseEntity entity) {
         int time = level.getTime() % Level.TIME_FULL;
-        return !entity.isOnFire() && !level.isRaining() && !entity.isBaby() && (time < 12567 || time > 23450) && !entity.isInsideOfWater() && level.canBlockSeeSky(entity);
+        return !entity.isOnFire() && !level.isRaining() && !entity.isBaby() && (time < 12567 || time > 23450) && !Utils.entityInsideWaterFast(entity) && level.canBlockSeeSky(entity);
     }
 }

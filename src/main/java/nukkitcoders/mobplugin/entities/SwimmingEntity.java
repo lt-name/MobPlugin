@@ -11,6 +11,7 @@ import nukkitcoders.mobplugin.entities.animal.Animal;
 import nukkitcoders.mobplugin.route.RouteFinder;
 import nukkitcoders.mobplugin.runnable.RouteFinderSearchTask;
 import nukkitcoders.mobplugin.utils.Utils;
+import org.apache.commons.math3.util.FastMath;
 
 public abstract class SwimmingEntity extends BaseEntity {
 
@@ -115,7 +116,7 @@ public abstract class SwimmingEntity extends BaseEntity {
                     this.motionX = this.getSpeed() * 0.1 * (x / diff);
                     this.motionZ = this.getSpeed() * 0.1 * (z / diff);
                 }
-                if (this.stayTime <= 0 || Utils.rand()) this.yaw = Math.toDegrees(-Math.atan2(x / diff, z / diff));
+                if (this.stayTime <= 0 || Utils.rand()) this.yaw = Math.toDegrees(-FastMath.atan2(x / diff, z / diff));
             }
 
             Vector3 before = this.target;
@@ -132,15 +133,15 @@ public abstract class SwimmingEntity extends BaseEntity {
                     this.motionX = this.getSpeed() * 0.15 * (x / diff);
                     this.motionZ = this.getSpeed() * 0.15 * (z / diff);
                 }
-                if (this.stayTime <= 0 || Utils.rand()) this.yaw = Math.toDegrees(-Math.atan2(x / diff, z / diff));
+                if (this.stayTime <= 0 || Utils.rand()) this.yaw = Math.toDegrees(-FastMath.atan2(x / diff, z / diff));
             }
 
             double dx = this.motionX;
             double dz = this.motionZ;
 
-            if (this.isInsideOfWater() && (this.motionX > 0 || this.motionZ > 0)) {
+            if (Utils.entityInsideWaterFast(this) && (this.motionX > 0 || this.motionZ > 0)) {
                 this.motionY = Utils.rand(-0.12, 0.12);
-            } else if (!this.isOnGround() && !isInsideOfWater()) {
+            } else if (!this.isOnGround() && !Utils.entityInsideWaterFast(this)) {
                 this.motionY -= 0.08;
             } else {
                 this.motionY = 0;

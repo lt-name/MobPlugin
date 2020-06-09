@@ -1,5 +1,8 @@
 package nukkitcoders.mobplugin.utils;
 
+import cn.nukkit.block.BlockID;
+import cn.nukkit.entity.Entity;
+import cn.nukkit.math.NukkitMath;
 import cn.nukkit.math.Vector3;
 
 import java.util.SplittableRandom;
@@ -54,5 +57,11 @@ public class Utils {
                 return (element-pos1.getZ()) * (pos1.getX()-pos2.getX()) / (pos1.getZ()-pos2.getZ()) + pos1.getX();
             }
         }
+    }
+
+    public static boolean entityInsideWaterFast(Entity ent) {
+        double y = ent.y + ent.getEyeHeight();
+        int b = ent.level.getBlockIdAt(NukkitMath.floorDouble(ent.x), NukkitMath.floorDouble(y), NukkitMath.floorDouble(ent.z));
+        return b == BlockID.WATER || b == BlockID.STILL_WATER;
     }
 }

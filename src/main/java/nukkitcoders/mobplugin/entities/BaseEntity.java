@@ -455,7 +455,7 @@ public abstract class BaseEntity extends EntityCreature implements EntityAgeable
     }
 
     public void updateMovementLite() {
-        if (!this.isOnGround() && !this.isInsideOfWater()) {
+        if (!this.isOnGround() && !Utils.entityInsideWaterFast(this)) {
             this.motionY = -0.5;
             this.updateMovement();
         }

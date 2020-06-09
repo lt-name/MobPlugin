@@ -49,7 +49,7 @@ public abstract class WalkingAnimal extends WalkingEntity implements Animal {
             }
         }
 
-        if (!this.hasEffect(Effect.WATER_BREATHING) && this.isInsideOfWater()) {
+        if (!this.hasEffect(Effect.WATER_BREATHING) && Utils.entityInsideWaterFast(this)) {
             hasUpdate = true;
             int airTicks = this.getDataPropertyShort(DATA_AIR) - tickDiff;
             if (airTicks <= -20) {

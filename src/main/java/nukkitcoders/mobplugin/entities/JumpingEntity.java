@@ -11,6 +11,7 @@ import cn.nukkit.math.Vector2;
 import cn.nukkit.math.Vector3;
 import cn.nukkit.nbt.tag.CompoundTag;
 import nukkitcoders.mobplugin.utils.Utils;
+import org.apache.commons.math3.util.FastMath;
 
 public abstract class JumpingEntity extends BaseEntity {
 
@@ -128,7 +129,7 @@ public abstract class JumpingEntity extends BaseEntity {
                     this.motionX = 0;
                     this.motionZ = 0;
                 } else {
-                    if (this.isInsideOfWater()) {
+                    if (Utils.entityInsideWaterFast(this)) {
                         this.motionX = this.getSpeed() * 0.05 * (x / diff);
                         this.motionZ = this.getSpeed() * 0.05 * (z / diff);
                         //this.level.addParticle(new BubbleParticle(this.add(Utils.rand(-2.0,2.0),Utils.rand(-0.5,0),Utils.rand(-2.0,2.0))));
@@ -137,7 +138,7 @@ public abstract class JumpingEntity extends BaseEntity {
                         this.motionZ = this.getSpeed() * 0.1 * (z / diff);
                     }
                 }
-                if (this.stayTime <= 0 || Utils.rand()) this.yaw = Math.toDegrees(-Math.atan2(x / diff, z / diff));
+                if (this.stayTime <= 0 || Utils.rand()) this.yaw = Math.toDegrees(-FastMath.atan2(x / diff, z / diff));
                 return this.followTarget;
             }
 
@@ -152,7 +153,7 @@ public abstract class JumpingEntity extends BaseEntity {
                     this.motionX = 0;
                     this.motionZ = 0;
                 } else {
-                    if (this.isInsideOfWater()) {
+                    if (Utils.entityInsideWaterFast(this)) {
                         this.motionX = this.getSpeed() * 0.05 * (x / diff);
                         this.motionZ = this.getSpeed() * 0.05 * (z / diff);
                         //this.level.addParticle(new BubbleParticle(this.add(Utils.rand(-2.0,2.0),Utils.rand(-0.5,0),Utils.rand(-2.0,2.0))));
@@ -161,7 +162,7 @@ public abstract class JumpingEntity extends BaseEntity {
                         this.motionZ = this.getSpeed() * 0.15 * (z / diff);
                     }
                 }
-                if (this.stayTime <= 0 || Utils.rand()) this.yaw = Math.toDegrees(-Math.atan2(x / diff, z / diff));
+                if (this.stayTime <= 0 || Utils.rand()) this.yaw = Math.toDegrees(-FastMath.atan2(x / diff, z / diff));
             }
 
             double dx = this.motionX;

@@ -29,6 +29,7 @@ import nukkitcoders.mobplugin.entities.monster.WalkingMonster;
 import nukkitcoders.mobplugin.route.WalkerRouteFinder;
 import nukkitcoders.mobplugin.runnable.RouteFinderSearchTask;
 import nukkitcoders.mobplugin.utils.Utils;
+import org.apache.commons.math3.util.FastMath;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -167,7 +168,7 @@ public class Creeper extends WalkingMonster implements EntityExplosive {
                     this.motionX = this.getSpeed() * 0.15 * (x / diff);
                     this.motionZ = this.getSpeed() * 0.15 * (z / diff);
                 }
-                if (this.stayTime <= 0 || Utils.rand()) this.yaw = Math.toDegrees(-Math.atan2(x / diff, z / diff));
+                if (this.stayTime <= 0 || Utils.rand()) this.yaw = Math.toDegrees(-FastMath.atan2(x / diff, z / diff));
             }
 
             double dx = this.motionX;
