@@ -91,7 +91,7 @@ public abstract class FlyingEntity extends BaseEntity {
 
     @Override
     public Vector3 updateMove(int tickDiff) {
-        if (!isImmobile()) {
+        //if (!isImmobile()) {
             if (!this.isMovement()) {
                 return null;
             }
@@ -163,7 +163,7 @@ public abstract class FlyingEntity extends BaseEntity {
 
             this.updateMovement();
             return target;
-        }
-        return null;
+        //}
+        //return null;
     }
 }

@@ -4,6 +4,7 @@ import cn.nukkit.block.BlockID;
 import cn.nukkit.entity.Entity;
 import cn.nukkit.math.NukkitMath;
 import cn.nukkit.math.Vector3;
+import org.apache.commons.math3.util.FastMath;
 
 import java.util.SplittableRandom;
 
@@ -25,14 +26,14 @@ public class Utils {
         if (min == max) {
             return max;
         }
-        return min + Math.random() * (max-min);
+        return min + FastMath.random() * (max-min);
     }
 
     public static float rand(float min, float max) {
         if (min == max) {
             return max;
         }
-        return min + (float) Math.random() * (max-min);
+        return min + (float) FastMath.random() * (max-min);
     }
 
     public static boolean rand() {

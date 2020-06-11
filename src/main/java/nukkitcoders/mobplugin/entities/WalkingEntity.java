@@ -130,7 +130,7 @@ public abstract class WalkingEntity extends BaseEntity {
     }
 
     public Vector3 updateMove(int tickDiff) {
-        if (!isImmobile()) {
+        //if (!isImmobile()) {
             if (!this.isMovement()) {
                 return null;
             }
@@ -230,8 +230,8 @@ public abstract class WalkingEntity extends BaseEntity {
                 }
             }
             return this.followTarget != null ? this.followTarget : this.target;
-        }
-        return null;
+        //}
+        //return null;
     }
 
     public RouteFinder getRoute() {

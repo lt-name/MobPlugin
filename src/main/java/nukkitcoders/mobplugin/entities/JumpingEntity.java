@@ -108,7 +108,7 @@ public abstract class JumpingEntity extends BaseEntity {
     }
 
     public Vector3 updateMove(int tickDiff) {
-        if (!isImmobile()) {
+        //if (!isImmobile()) {
             if (!this.isMovement()) {
                 return null;
             }
@@ -194,7 +194,7 @@ public abstract class JumpingEntity extends BaseEntity {
             }
             this.updateMovement();
             return this.target;
-        }
-        return null;
+        //}
+        //return null;
     }
 }
