@@ -196,7 +196,7 @@ public class Wither extends FlyingMonster implements Boss, EntitySmite {
     }
 
     private void explode() {
-        EntityExplosionPrimeEvent ev = new EntityExplosionPrimeEvent(this, 5);
+        EntityExplosionPrimeEvent ev = new EntityExplosionPrimeEvent(this, 7);
         this.server.getPluginManager().callEvent(ev);
 
         if (!ev.isCancelled()) {

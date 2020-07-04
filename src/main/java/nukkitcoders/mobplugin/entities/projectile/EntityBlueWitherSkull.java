@@ -3,11 +3,12 @@ package nukkitcoders.mobplugin.entities.projectile;
 import cn.nukkit.entity.Entity;
 import cn.nukkit.entity.EntityExplosive;
 import cn.nukkit.event.entity.ExplosionPrimeEvent;
-import cn.nukkit.level.Explosion;
 import cn.nukkit.level.GameRule;
 import cn.nukkit.level.format.FullChunk;
 import cn.nukkit.nbt.tag.CompoundTag;
 import cn.nukkit.potion.Effect;
+import nukkitcoders.mobplugin.utils.Utils;
+import nukkitcoders.mobplugin.utils.WitherSkullExplosion;
 
 public class EntityBlueWitherSkull extends EntityWitherSkull implements EntityExplosive {
 
@@ -68,7 +69,7 @@ public class EntityBlueWitherSkull extends EntityWitherSkull implements EntityEx
         this.server.getPluginManager().callEvent(ev);
 
         if (!ev.isCancelled()) {
-            Explosion explosion = new Explosion(this, (float) ev.getForce(), this.shootingEntity);
+            WitherSkullExplosion explosion = new WitherSkullExplosion(this, (float) ev.getForce(), this.shootingEntity);
             if (ev.isBlockBreaking() && this.level.getGameRules().getBoolean(GameRule.MOB_GRIEFING)) {
                 explosion.explodeA();
             }

@@ -32,6 +32,7 @@ import nukkitcoders.mobplugin.entities.animal.walking.Chicken;
 import nukkitcoders.mobplugin.entities.animal.walking.Llama;
 import nukkitcoders.mobplugin.entities.animal.walking.Pig;
 import nukkitcoders.mobplugin.entities.block.BlockEntitySpawner;
+import nukkitcoders.mobplugin.entities.monster.flying.Wither;
 import nukkitcoders.mobplugin.entities.monster.walking.Enderman;
 import nukkitcoders.mobplugin.entities.monster.walking.Silverfish;
 import nukkitcoders.mobplugin.event.entity.SpawnGolemEvent;
@@ -205,7 +206,9 @@ public class EventListener implements Listener {
                     player.getInventory().setItemInHand(item);
                 }
 
-                Entity.createEntity("Wither", pos).spawnToAll();
+                Wither wither = (Wither) Entity.createEntity("Wither", pos);
+                wither.stayTime = 220;
+                wither.spawnToAll();
                 block.getLevel().addSound(block, cn.nukkit.level.Sound.MOB_WITHER_SPAWN);
                 ev.setCancelled(true);
             }
