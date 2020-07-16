@@ -30,7 +30,7 @@ public class ZombieSpawner extends AbstractEntitySpawner {
         } else if (biomeId == 8) {
         } else if (pos.y > 255 || pos.y < 1 || blockId == Block.AIR) {
         } else if (Block.transparent[blockId]) {
-        } else if (MobPlugin.getInstance().isMobSpawningAllowedByTime(level)) {
+        } else if (MobPlugin.isMobSpawningAllowedByTime(level)) {
             if (Utils.rand(1, 40) == 30) {
                 BaseEntity entity = this.spawnTask.createEntity("ZombieVillager", pos.add(0, 1, 0));
                 if (Utils.rand(1, 20) == 1) {

@@ -114,7 +114,7 @@ public class Zombie extends WalkingMonster implements EntityAgeable, EntitySmite
 
         boolean hasUpdate = super.entityBaseTick(tickDiff);
 
-        if (MobPlugin.getInstance().shouldMobBurn(level, this)) {
+        if (MobPlugin.shouldMobBurn(level, this)) {
             if (this.armor[0] == null) {
                 this.setOnFire(100);
             } else if (this.armor[0].getId() == 0) {

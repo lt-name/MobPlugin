@@ -72,8 +72,9 @@ public abstract class FlyingMonster extends FlyingEntity implements Monster {
     }
 
     public void setDamage(float[] damage) {
-        if (damage.length < 4)
-            return;
+        if (damage.length < 4) {
+            throw new IllegalArgumentException("Invalid damage array length");
+        }
 
         if (minDamage == null || minDamage.length < 4) {
             minDamage = new float[] { 0, 0, 0, 0 };

@@ -27,7 +27,7 @@ public class SheepSpawner extends AbstractEntitySpawner {
         if (blockId != Block.GRASS) {
         } else if (biomeId == 8) {
         } else if (pos.y > 255 || pos.y < 1) {
-        } else if (MobPlugin.getInstance().isAnimalSpawningAllowedByTime(level)) {
+        } else if (MobPlugin.isAnimalSpawningAllowedByTime(level)) {
             BaseEntity entity = this.spawnTask.createEntity("Sheep", pos.add(0, 1, 0));
             if (Utils.rand(1, 20) == 1) {
                 entity.setBaby(true);

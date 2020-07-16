@@ -18,6 +18,7 @@ import cn.nukkit.nbt.tag.CompoundTag;
 import cn.nukkit.network.protocol.LevelSoundEventPacket;
 import nukkitcoders.mobplugin.entities.animal.WalkingAnimal;
 import nukkitcoders.mobplugin.utils.Utils;
+import org.apache.commons.math3.util.FastMath;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -195,10 +196,10 @@ public class Pig extends WalkingAnimal implements EntityRideable {
                 }
 
                 f = friction / f;
-                strafe = strafe * f;
-                forward = forward * f;
-                double f1 = Math.sin(this.yaw * 0.017453292);
-                double f2 = Math.cos(this.yaw * 0.017453292);
+                strafe *= f;
+                forward *= f;
+                double f1 = FastMath.sin(this.yaw * 0.017453292);
+                double f2 = FastMath.cos(this.yaw * 0.017453292);
                 this.motionX = (strafe * f2 - forward * f1);
                 this.motionZ = (forward * f2 + strafe * f1);
             } else {

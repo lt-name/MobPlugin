@@ -75,7 +75,7 @@ public abstract class SwimmingMonster extends SwimmingEntity implements Monster 
 
     public void setDamage(float[] damage) {
         if (damage.length < 4) {
-            return;
+            throw new IllegalArgumentException("Invalid damage array length");
         }
 
         if (minDamage == null || minDamage.length < 4) {

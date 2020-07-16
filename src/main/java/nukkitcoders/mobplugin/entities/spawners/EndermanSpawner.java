@@ -30,7 +30,7 @@ public class EndermanSpawner extends AbstractEntitySpawner {
         if (Block.transparent[blockId]) {
         } else if (blockLightLevel > 7 && !level.getName().equals("nether") && !level.getName().equals("the_end")) {
         } else if ((pos.y > 255 || (level.getName().equals("nether") && pos.y > 127)) || pos.y < 1 || blockId == Block.AIR) {
-        } else if (MobPlugin.getInstance().isMobSpawningAllowedByTime(level) || level.getName().equals("nether") || level.getName().equals("the_end")) {
+        } else if (MobPlugin.isMobSpawningAllowedByTime(level) || level.getName().equals("nether") || level.getName().equals("the_end")) {
             this.spawnTask.createEntity("Enderman", pos.add(0, 1, 0));
         }
     }

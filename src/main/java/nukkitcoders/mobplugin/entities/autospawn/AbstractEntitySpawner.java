@@ -70,7 +70,7 @@ public abstract class AbstractEntitySpawner implements IEntitySpawner {
                 pos.z += this.spawnTask.getRandomSafeXZCoord(50, 26, 6);
                 pos.y = this.spawnTask.getSafeYCoord(level, pos);
 
-                if (level.getSpawnLocation().distance(pos) < this.spawnAreaSize) {
+                if (this.spawnAreaSize > 0 && level.getSpawnLocation().distance(pos) < this.spawnAreaSize) {
                     return;
                 }
             } else {

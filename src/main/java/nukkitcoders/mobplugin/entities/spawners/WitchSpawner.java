@@ -29,7 +29,7 @@ public class WitchSpawner extends AbstractEntitySpawner {
         if (blockLightLevel > 7) {
         } else if (blockId != Block.GRASS) {
         } else if (pos.y > 255 || pos.y < 1) {
-        } else if (MobPlugin.getInstance().isMobSpawningAllowedByTime(level)) {
+        } else if (MobPlugin.isMobSpawningAllowedByTime(level)) {
             this.spawnTask.createEntity("Witch", pos.add(0, 1, 0));
         }
     }

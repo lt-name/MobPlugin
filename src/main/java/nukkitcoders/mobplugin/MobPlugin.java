@@ -95,7 +95,8 @@ public class MobPlugin extends PluginBase implements Listener {
             }
 
             String mob = Character.toUpperCase(args[0].charAt(0)) + args[0].substring(1);
-            for (int x = 2; x < mob.length() - 1; x++) {
+            int max = mob.length() - 1;
+            for (int x = 2; x < max; x++) {
                 if (mob.charAt(x) == '_') {
                     mob = mob.substring(0, x) + Character.toUpperCase(mob.charAt(x + 1)) + mob.substring(x + 2);
                 }
@@ -274,17 +275,17 @@ public class MobPlugin extends PluginBase implements Listener {
         Entity.registerEntity("WitherSkull", EntityWitherSkull.class);
     }
 
-    public boolean isAnimalSpawningAllowedByTime(Level level) {
+    public static boolean isAnimalSpawningAllowedByTime(Level level) {
         int time = level.getTime() % Level.TIME_FULL;
         return time < 13184 || time > 22800;
     }
 
-    public boolean isMobSpawningAllowedByTime(Level level) {
+    public static boolean isMobSpawningAllowedByTime(Level level) {
         int time = level.getTime() % Level.TIME_FULL;
         return time > 13184 && time < 22800;
     }
 
-    public boolean shouldMobBurn(Level level, BaseEntity entity) {
+    public static boolean shouldMobBurn(Level level, BaseEntity entity) {
         int time = level.getTime() % Level.TIME_FULL;
         return !entity.isOnFire() && !level.isRaining() && !entity.isBaby() && (time < 12567 || time > 23450) && !Utils.entityInsideWaterFast(entity) && level.canBlockSeeSky(entity);
     }

@@ -1,10 +1,9 @@
 package nukkitcoders.mobplugin.entities.monster.walking;
 
-import cn.nukkit.entity.EntitySmite;
 import cn.nukkit.level.format.FullChunk;
 import cn.nukkit.nbt.tag.CompoundTag;
 
-public class ZombieVillagerV2 extends ZombieVillager implements EntitySmite {
+public class ZombieVillagerV2 extends ZombieVillager {
 
     public static final int NETWORK_ID = 116;
 

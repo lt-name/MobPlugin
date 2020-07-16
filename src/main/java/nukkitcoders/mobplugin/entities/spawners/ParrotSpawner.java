@@ -27,7 +27,7 @@ public class ParrotSpawner extends AbstractEntitySpawner {
         if (biomeId != 21 && biomeId != 149 && biomeId != 23 && biomeId != 151) {
         } else if (blockId != Block.GRASS && blockId != Block.LEAVES) {
         } else if (pos.y > 255 || pos.y < 1) {
-        } else if (MobPlugin.getInstance().isAnimalSpawningAllowedByTime(level)) {
+        } else if (MobPlugin.isAnimalSpawningAllowedByTime(level)) {
             this.spawnTask.createEntity("Parrot", pos.add(0, 1, 0));
         }
     }

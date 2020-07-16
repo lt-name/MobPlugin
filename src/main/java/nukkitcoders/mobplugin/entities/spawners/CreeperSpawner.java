@@ -27,7 +27,7 @@ public class CreeperSpawner extends AbstractEntitySpawner {
         } else if (blockLightLevel > 7) {
         } else if (biomeId == 8) {
         } else if (pos.y > 255 || pos.y < 1 || blockId == Block.AIR) {
-        } else if (MobPlugin.getInstance().isMobSpawningAllowedByTime(level)) {
+        } else if (MobPlugin.isMobSpawningAllowedByTime(level)) {
             this.spawnTask.createEntity("Creeper", pos.add(0, 1, 0));
         }
     }

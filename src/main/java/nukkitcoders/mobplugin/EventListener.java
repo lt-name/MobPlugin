@@ -40,6 +40,7 @@ import nukkitcoders.mobplugin.event.entity.SpawnWitherEvent;
 import nukkitcoders.mobplugin.event.spawner.SpawnerChangeTypeEvent;
 import nukkitcoders.mobplugin.event.spawner.SpawnerCreateEvent;
 import nukkitcoders.mobplugin.utils.Utils;
+import org.apache.commons.math3.util.FastMath;
 
 import static nukkitcoders.mobplugin.entities.block.BlockEntitySpawner.*;
 
@@ -282,7 +283,7 @@ public class EventListener implements Listener {
             );
 
             for (int i = 0; i < 8; i++) {
-                aab.offset(-Math.sin(player.getYaw() * Math.PI / 180) * i, i * (Math.tan(player.getPitch() * -3.141592653589793 / 180)), Math.cos(player.getYaw() * Math.PI / 180) * i);
+                aab.offset(-FastMath.sin(player.getYaw() * Math.PI / 180) * i, i * (Math.tan(player.getPitch() * -3.141592653589793 / 180)), FastMath.cos(player.getYaw() * Math.PI / 180) * i);
                 Entity[] entities = player.getLevel().getCollidingEntities(aab);
                 if (entities.length > 0) {
                     for (Entity e : entities) {

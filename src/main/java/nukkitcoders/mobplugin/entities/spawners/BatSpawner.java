@@ -28,7 +28,7 @@ public class BatSpawner extends AbstractEntitySpawner {
         } else if (blockLightLevel > 3) {
         } else if (pos.y > 255 || pos.y < 1 || blockId == Block.AIR) {
         } else if (level.canBlockSeeSky(pos)) {
-        } else if (MobPlugin.getInstance().isAnimalSpawningAllowedByTime(level)) {
+        } else if (MobPlugin.isAnimalSpawningAllowedByTime(level)) {
             this.spawnTask.createEntity("Bat", pos.add(0, 1, 0));
         }
     }

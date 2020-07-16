@@ -75,7 +75,7 @@ public class Stray extends WalkingMonster implements EntitySmite {
 
         boolean hasUpdate  = super.entityBaseTick(tickDiff);
 
-        if (MobPlugin.getInstance().shouldMobBurn(level, this)) {
+        if (MobPlugin.shouldMobBurn(level, this)) {
             this.setOnFire(100);
         }
 

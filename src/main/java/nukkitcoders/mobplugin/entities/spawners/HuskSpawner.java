@@ -29,7 +29,7 @@ public class HuskSpawner extends AbstractEntitySpawner {
         if (blockLightLevel > 7) {
         } else if (pos.y > 255 || pos.y < 1 || blockId == Block.AIR) {
         } else if (biomeId != 2) {
-        } else if (MobPlugin.getInstance().isMobSpawningAllowedByTime(level)) {
+        } else if (MobPlugin.isMobSpawningAllowedByTime(level)) {
             BaseEntity entity = this.spawnTask.createEntity("Husk", pos.add(0, 1, 0));
             if (Utils.rand(1, 20) == 1) {
                 entity.setBaby(true);

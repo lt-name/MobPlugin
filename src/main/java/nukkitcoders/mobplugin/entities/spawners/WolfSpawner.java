@@ -27,7 +27,7 @@ public class WolfSpawner extends AbstractEntitySpawner {
         if (biomeId != 4 && biomeId != 5 && biomeId != 20 && biomeId != 27 && biomeId != 30 && biomeId != 32 && biomeId != 133 && biomeId != 158 ) {
         } else if (pos.y > 255 || pos.y < 1 || blockId == Block.AIR) {
         } else if (Block.transparent[blockId]) {
-        } else if (MobPlugin.getInstance().isAnimalSpawningAllowedByTime(level)) {
+        } else if (MobPlugin.isAnimalSpawningAllowedByTime(level)) {
             BaseEntity entity = this.spawnTask.createEntity("Wolf", pos.add(0, 1, 0));
             if (Utils.rand(1, 20) == 1) {
                 entity.setBaby(true);

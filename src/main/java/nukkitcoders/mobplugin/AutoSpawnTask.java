@@ -132,6 +132,11 @@ public class AutoSpawnTask implements Runnable {
     public boolean entitySpawnAllowed(Level level, int networkId, Vector3 pos) {
         int count = 0;
         int max = maxSpawns.getOrDefault(networkId, 0);
+
+        if (max < 1) {
+            return false;
+        }
+
         for (Entity entity : level.getEntities()) {
             if (entity.isAlive() && entity.getNetworkId() == networkId && new Vector3(pos.x, entity.y, pos.z).distanceSquared(entity) < 10000) {
                 count++;
