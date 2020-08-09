@@ -109,7 +109,7 @@ public abstract class SwimmingEntity extends BaseEntity {
                 double z = this.target.z - this.z;
 
                 double diff = Math.abs(x) + Math.abs(z);
-                if (this.stayTime > 0 || this.distance(this.followTarget) <= (this.getWidth() + 0.0d) / 2 + 0.05) {
+                if (this.stayTime > 0 || this.distance(this.followTarget) <= (this.getWidth()) / 2 + 0.05) {
                     this.motionX = 0;
                     this.motionZ = 0;
                 } else {
@@ -126,7 +126,7 @@ public abstract class SwimmingEntity extends BaseEntity {
                 double z = this.target.z - this.z;
 
                 double diff = Math.abs(x) + Math.abs(z);
-                if (this.stayTime > 0 || this.distance(this.target) <= ((this.getWidth() + 0.0d) / 2 + 0.05) * nearbyDistanceMultiplier()) {
+                if (this.stayTime > 0 || this.distance(this.target) <= ((this.getWidth()) / 2 + 0.05) * nearbyDistanceMultiplier()) {
                     this.motionX = 0;
                     this.motionZ = 0;
                 } else {
@@ -179,5 +179,12 @@ public abstract class SwimmingEntity extends BaseEntity {
 
     public void setRoute(RouteFinder route) {
         this.route = route;
+    }
+
+    @Override
+    public boolean entityBaseTick(int tickDiff) {
+        boolean hasUpdate = super.entityBaseTick(tickDiff);
+        this.setAirTicks(300);
+        return hasUpdate;
     }
 }

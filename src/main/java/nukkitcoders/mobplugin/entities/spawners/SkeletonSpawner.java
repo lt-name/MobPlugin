@@ -22,12 +22,10 @@ public class SkeletonSpawner extends AbstractEntitySpawner {
     public void spawn(Player player, Position pos, Level level) {
         int blockId = level.getBlockIdAt((int) pos.x, (int) pos.y, (int) pos.z);
         int blockLightLevel = level.getBlockLightAt((int) pos.x, (int) pos.y, (int) pos.z);
-        int biomeId = level.getBiomeId((int) pos.x, (int) pos.z);
 
         if (Block.transparent[blockId]) {
         } else if (blockLightLevel > 7) {
         } else if (pos.y > 255 || pos.y < 1 || blockId == Block.AIR) {
-        } else if (biomeId == 8) {
         } else if (MobPlugin.isMobSpawningAllowedByTime(level)) {
             this.spawnTask.createEntity("Skeleton", pos.add(0, 1, 0));
         }

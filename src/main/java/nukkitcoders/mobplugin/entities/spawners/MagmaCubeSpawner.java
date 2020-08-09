@@ -16,11 +16,9 @@ public class MagmaCubeSpawner extends AbstractEntitySpawner {
 
     @Override
     public void spawn(Player player, Position pos, Level level) {
-        int biomeId = level.getBiomeId((int) pos.x, (int) pos.z);
         int blockId = level.getBlockIdAt((int) pos.x, (int) pos.y, (int) pos.z);
 
-        if (biomeId != 8) {
-        } else if (blockId != Block.NETHERRACK) {
+        if (blockId != Block.NETHERRACK) {
         } else if (pos.y > 127 || pos.y < 1) {
         } else {
             this.spawnTask.createEntity("MagmaCube", pos.add(0, 1, 0));

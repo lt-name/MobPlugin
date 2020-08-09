@@ -106,12 +106,12 @@ public class Stray extends WalkingMonster implements EntitySmite {
 
                 EntityProjectile projectile = ev.getProjectile();
                 if (ev.isCancelled()) {
-                    if (this.stayTime > 0 || this.distance(this.target) <= ((this.getWidth() + 0.0d) / 2 + 0.05) * nearbyDistanceMultiplier()) projectile.close();
+                    if (this.stayTime > 0 || this.distance(this.target) <= ((this.getWidth()) / 2 + 0.05) * nearbyDistanceMultiplier()) projectile.close();
                 } else {
                     ProjectileLaunchEvent launch = new ProjectileLaunchEvent(projectile);
                     this.server.getPluginManager().callEvent(launch);
                     if (launch.isCancelled()) {
-                        if (this.stayTime > 0 || this.distance(this.target) <= ((this.getWidth() + 0.0d) / 2 + 0.05) * nearbyDistanceMultiplier()) projectile.close();
+                        if (this.stayTime > 0 || this.distance(this.target) <= ((this.getWidth()) / 2 + 0.05) * nearbyDistanceMultiplier()) projectile.close();
                     } else {
                         projectile.spawnToAll();
                         ((EntityArrow) projectile).setPickupMode(EntityArrow.PICKUP_NONE);

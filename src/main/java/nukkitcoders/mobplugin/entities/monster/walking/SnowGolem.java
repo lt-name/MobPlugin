@@ -9,6 +9,7 @@ import cn.nukkit.event.entity.EntityDamageEvent;
 import cn.nukkit.event.entity.EntityShootBowEvent;
 import cn.nukkit.event.entity.ProjectileLaunchEvent;
 import cn.nukkit.item.Item;
+import cn.nukkit.level.Level;
 import cn.nukkit.level.Location;
 import cn.nukkit.level.Sound;
 import cn.nukkit.level.format.FullChunk;
@@ -78,11 +79,14 @@ public class SnowGolem extends WalkingMonster {
             }
 
             EntitySnowball snowball = (EntitySnowball) k;
-            snowball.setMotion(new Vector3(-Math.sin(Math.toRadians(yaw)) * Math.cos(Math.toRadians(pitch)) * f * f, -Math.sin(Math.toRadians(pitch)) * f * f,
-                    Math.cos(Math.toRadians(yaw)) * Math.cos(Math.toRadians(pitch)) * f * f));
+            double a = -Math.sin(Math.toRadians(yaw)) * Math.cos(Math.toRadians(pitch)) * f * f;
+            double b = -Math.sin(Math.toRadians(pitch)) * f * f;
+            double c = Math.cos(Math.toRadians(yaw)) * Math.cos(Math.toRadians(pitch)) * f * f;
+            snowball.setMotion(new Vector3(a, b,
+                    c));
 
-            Vector3 motion = new Vector3(-Math.sin(Math.toRadians(yaw)) * Math.cos(Math.toRadians(pitch)) * f * f, -Math.sin(Math.toRadians(pitch)) * f * f,
-                    Math.cos(Math.toRadians(yaw)) * Math.cos(Math.toRadians(pitch)) * f * f).multiply(f);
+            Vector3 motion = new Vector3(a, b,
+                    c).multiply(f);
             snowball.setMotion(motion);
 
             EntityShootBowEvent ev = new EntityShootBowEvent(this, Item.get(Item.ARROW, 0, 1), snowball, f);
@@ -90,12 +94,12 @@ public class SnowGolem extends WalkingMonster {
 
             EntityProjectile projectile = ev.getProjectile();
             if (ev.isCancelled()) {
-                if (this.stayTime > 0 || this.distance(this.target) <= ((this.getWidth() + 0.0d) / 2 + 0.05) * nearbyDistanceMultiplier()) projectile.close();
+                if (this.stayTime > 0 || this.distance(this.target) <= ((this.getWidth()) / 2 + 0.05) * nearbyDistanceMultiplier()) projectile.close();
             } else if (projectile != null) {
                 ProjectileLaunchEvent launch = new ProjectileLaunchEvent(projectile);
                 this.server.getPluginManager().callEvent(launch);
                 if (launch.isCancelled()) {
-                    if (this.stayTime > 0 || this.distance(this.target) <= ((this.getWidth() + 0.0d) / 2 + 0.05) * nearbyDistanceMultiplier()) projectile.close();
+                    if (this.stayTime > 0 || this.distance(this.target) <= ((this.getWidth()) / 2 + 0.05) * nearbyDistanceMultiplier()) projectile.close();
                 } else {
                     projectile.spawnToAll();
                     this.level.addSound(this, Sound.MOB_SNOWGOLEM_SHOOT);
@@ -155,7 +159,7 @@ public class SnowGolem extends WalkingMonster {
 
     @Override
     public boolean entityBaseTick(int tickDiff) {
-        if (this.age % 20 == 0 && this.level.isRaining() && this.level.canBlockSeeSky(this)) {
+        if (this.age % 20 == 0 && (this.level.getDimension() == Level.DIMENSION_NETHER || (this.level.isRaining() && this.level.canBlockSeeSky(this)))) {
             this.attack(new EntityDamageEvent(this, EntityDamageEvent.DamageCause.FIRE_TICK, 1));
         }
 

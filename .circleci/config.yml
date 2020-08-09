@@ -24,4 +24,4 @@ jobs:
       - run: mvn clean package
 
       - store_artifacts:
-          path: target/MobPlugin-1.13.6_lite_b9.jar
+          path: target/MobPlugin-1.15.0_lite_b9.jar

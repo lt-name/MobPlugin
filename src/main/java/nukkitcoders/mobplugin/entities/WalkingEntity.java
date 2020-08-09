@@ -12,6 +12,7 @@ import nukkitcoders.mobplugin.RouteFinderThreadPool;
 import nukkitcoders.mobplugin.entities.animal.Animal;
 import nukkitcoders.mobplugin.entities.animal.walking.Llama;
 import nukkitcoders.mobplugin.entities.animal.walking.Pig;
+import nukkitcoders.mobplugin.entities.monster.walking.Drowned;
 import nukkitcoders.mobplugin.route.RouteFinder;
 import nukkitcoders.mobplugin.runnable.RouteFinderSearchTask;
 import nukkitcoders.mobplugin.utils.Utils;
@@ -20,6 +21,8 @@ import org.apache.commons.math3.util.FastMath;
 public abstract class WalkingEntity extends BaseEntity {
 
     protected RouteFinder route = null;
+
+    protected final boolean isDrowned = this instanceof Drowned;
 
     public WalkingEntity(FullChunk chunk, CompoundTag nbt) {
         super(chunk, nbt);
@@ -98,7 +101,9 @@ public abstract class WalkingEntity extends BaseEntity {
         } else {
             int b = level.getBlockIdAt(NukkitMath.floorDouble(this.x), (int) (this.y + 0.8), NukkitMath.floorDouble(this.z));
             if (b == BlockID.WATER || b == BlockID.STILL_WATER) {
-                this.motionY = 0.16;
+                if (!this.isDrowned || this.target == null) {
+                    this.motionY = 0.16;
+                }
                 return true;
             }
         }
@@ -155,7 +160,7 @@ public abstract class WalkingEntity extends BaseEntity {
                 double z = this.target.z - this.z;
 
                 double diff = Math.abs(x) + Math.abs(z);
-                if (this.stayTime > 0 || this.distance(this.followTarget) <= (this.getWidth() + 0.0d) / 2 + 0.05) {
+                if (this.stayTime > 0 || this.distance(this.followTarget) <= (this.getWidth()) / 2 + 0.05) {
                     this.motionX = 0;
                     this.motionZ = 0;
                 } else {
@@ -178,7 +183,7 @@ public abstract class WalkingEntity extends BaseEntity {
                 double z = this.target.z - this.z;
 
                 double diff = Math.abs(x) + Math.abs(z);
-                if (this.stayTime > 0 || this.distance(this.target) <= ((this.getWidth() + 0.0d) / 2 + 0.05) * nearbyDistanceMultiplier()) {
+                if (this.stayTime > 0 || this.distance(this.target) <= ((this.getWidth()) / 2 + 0.05) * nearbyDistanceMultiplier()) {
                     this.motionX = 0;
                     this.motionZ = 0;
                 } else {

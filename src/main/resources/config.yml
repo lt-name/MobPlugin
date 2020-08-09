@@ -1,5 +1,5 @@
 # config version, do not edit!
-config-version: 11
+config-version: 13
 
 entities:
   # how often the spawn task should run
@@ -50,6 +50,9 @@ autospawn:
   wolf: 2
   zombie: 2
   zombiepigman: 3
+  fox: 2
+  panda: 1
+  drowned: 2
 
 other:
   # mob spawner spawning range
@@ -59,6 +62,11 @@ other:
   # give xp drops straight to player
   use-no-xp-orbs: true
   # do not spawn mobs this near to spawn area
-  spawn-no-spawning-area: 1
+  # set -1 to disable
+  spawn-no-spawning-area: -1
   # kill entities instead of despawning them
   kill-mobs-on-despawn: false
+  # enable mob spawner blocks
+  spawners-enabled: true
+  # custom enderman max spawns rule for the end world
+  end-enderman-spawning: 10

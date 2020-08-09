@@ -119,12 +119,14 @@ public class EnderDragon extends FlyingMonster implements Boss {
 
     @Override
     public boolean entityBaseTick(int tickDiff) {
-        for (Entity e : this.getLevel().getEntities()) {
-            if (e instanceof EntityEndCrystal) {
-                if (e.distanceSquared(this) <= 32) {
-                    float health = this.getHealth();
-                    if (!(health > this.getMaxHealth()) && health != 0) {
-                        this.setHealth(health + 0.1f);
+        if (tickDiff % 2 == 0) {
+            for (Entity e : this.getLevel().getEntities()) {
+                if (e instanceof EntityEndCrystal) {
+                    if (e.distanceSquared(this) <= 32) {
+                        float health = this.getHealth();
+                        if (!(health > this.getMaxHealth()) && health != 0) {
+                            this.setHealth(health + 0.2f);
+                        }
                     }
                 }
             }

@@ -36,9 +36,7 @@ public abstract class WalkingAnimal extends WalkingEntity implements Animal {
 
     @Override
     public boolean entityBaseTick(int tickDiff) {
-        boolean hasUpdate;
-
-        hasUpdate = super.entityBaseTick(tickDiff);
+        boolean hasUpdate = super.entityBaseTick(tickDiff);
 
         if (this.isInLove()) {
             this.inLoveTicks -= tickDiff;
@@ -47,18 +45,6 @@ public abstract class WalkingAnimal extends WalkingEntity implements Animal {
                     this.level.addParticle(new HeartParticle(this.add(Utils.rand(-1.0,1.0),this.getMountedYOffset()+ Utils.rand(-1.0,1.0),Utils.rand(-1.0,1.0))));
                 }
             }
-        }
-
-        if (!this.hasEffect(Effect.WATER_BREATHING) && Utils.entityInsideWaterFast(this)) {
-            hasUpdate = true;
-            int airTicks = this.getDataPropertyShort(DATA_AIR) - tickDiff;
-            if (airTicks <= -20) {
-                airTicks = 0;
-                this.attack(new EntityDamageEvent(this, EntityDamageEvent.DamageCause.DROWNING, 2));
-            }
-            this.setDataProperty(new ShortEntityData(DATA_AIR, airTicks));
-        } else {
-            this.setDataProperty(new ShortEntityData(DATA_AIR, 300));
         }
 
         return hasUpdate;

@@ -90,6 +90,9 @@ public class AutoSpawnTask implements Runnable {
         entitySpawners.add(new WolfSpawner(this));
         entitySpawners.add(new ZombieSpawner(this));
         entitySpawners.add(new ZombiePigmanSpawner(this));
+        entitySpawners.add(new FoxSpawner(this));
+        entitySpawners.add(new PandaSpawner(this));
+        entitySpawners.add(new DrownedSpawner(this));
     }
 
     private void prepareMaxSpawns() {
@@ -127,11 +130,18 @@ public class AutoSpawnTask implements Runnable {
         maxSpawns.put(Wolf.NETWORK_ID, this.pluginConfig.getInt("autospawn.wolf"));
         maxSpawns.put(Zombie.NETWORK_ID, this.pluginConfig.getInt("autospawn.zombie"));
         maxSpawns.put(ZombiePigman.NETWORK_ID, this.pluginConfig.getInt("autospawn.zombiepigman"));
+        maxSpawns.put(Fox.NETWORK_ID, this.pluginConfig.getInt("autospawn.fox"));
+        maxSpawns.put(Panda.NETWORK_ID, this.pluginConfig.getInt("autospawn.panda"));
+        maxSpawns.put(Drowned.NETWORK_ID, this.pluginConfig.getInt("autospawn.drowned"));
     }
 
     public boolean entitySpawnAllowed(Level level, int networkId, Vector3 pos) {
+        if (!spawningAllowedByDimension(networkId, level.getDimension())) {
+            return false;
+        }
+
         int count = 0;
-        int max = maxSpawns.getOrDefault(networkId, 0);
+        int max = networkId == Enderman.NETWORK_ID && level.getDimension() == Level.DIMENSION_THE_END ? plugin.config.endEndermanSpawnRate : maxSpawns.getOrDefault(networkId, 0);
 
         if (max < 1) {
             return false;
@@ -256,5 +266,20 @@ public class AutoSpawnTask implements Runnable {
             }
         }
         return y;
+    }
+
+    private static boolean spawningAllowedByDimension(int id, int dimension) {
+        switch (id) {
+            case Enderman.NETWORK_ID:
+                return true;
+            case Blaze.NETWORK_ID:
+            case Ghast.NETWORK_ID:
+            case MagmaCube.NETWORK_ID:
+            case WitherSkeleton.NETWORK_ID:
+            case ZombiePigman.NETWORK_ID:
+                return Level.DIMENSION_NETHER == dimension;
+            default:
+                return Level.DIMENSION_OVERWORLD == dimension;
+        }
     }
 }

@@ -6,6 +6,7 @@ import cn.nukkit.entity.passive.EntityDolphin;
 import cn.nukkit.level.Level;
 import cn.nukkit.level.Position;
 import nukkitcoders.mobplugin.AutoSpawnTask;
+import nukkitcoders.mobplugin.MobPlugin;
 import nukkitcoders.mobplugin.entities.autospawn.AbstractEntitySpawner;
 
 
@@ -22,8 +23,7 @@ public class DolphinSpawner extends AbstractEntitySpawner {
         if (blockId != Block.WATER && blockId != Block.STILL_WATER) {
         } else if (biomeId != 0) {
         } else if (pos.y > 255 || pos.y < 1) {
-        } else if (level.getName().equals("nether") || level.getName().equals("the_end")) {
-        } else {
+        } else if (MobPlugin.isAnimalSpawningAllowedByTime(level)) {
             int b = level.getBlockIdAt((int) pos.x, (int) (pos.y -1), (int) pos.z);
             if (b == Block.WATER || b == Block.STILL_WATER) {
                 this.spawnTask.createEntity("Dolphin", pos.add(0, -1, 0));

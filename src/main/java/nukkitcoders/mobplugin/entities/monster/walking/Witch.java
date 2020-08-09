@@ -56,7 +56,7 @@ public class Witch extends WalkingMonster {
             Player player = (Player) creature;
             return !player.closed && player.spawned && player.isAlive() && (player.isSurvival() || player.isAdventure()) && distance <= 100;
         }
-        return creature.isAlive() && !creature.closed && distance <= 81;
+        return creature.isAlive() && !creature.closed && distance <= 80;
     }
 
     @Override

@@ -85,7 +85,7 @@ public class BlockEntitySpawner extends BlockEntitySpawnable {
 
     @Override
     public boolean onUpdate() {
-        if (this.closed) {
+        if (this.closed || !MobPlugin.getInstance().config.spawnersEnabled) {
             return false;
         }
 

@@ -2,15 +2,16 @@ package nukkitcoders.mobplugin.entities.spawners;
 
 import cn.nukkit.Player;
 import cn.nukkit.block.Block;
-import cn.nukkit.entity.passive.EntitySalmon;
 import cn.nukkit.level.Level;
 import cn.nukkit.level.Position;
+import nukkitcoders.mobplugin.MobPlugin;
 import nukkitcoders.mobplugin.AutoSpawnTask;
 import nukkitcoders.mobplugin.entities.autospawn.AbstractEntitySpawner;
+import nukkitcoders.mobplugin.entities.monster.walking.Drowned;
 
-public class SalmonSpawner extends AbstractEntitySpawner {
+public class DrownedSpawner extends AbstractEntitySpawner {
 
-    public SalmonSpawner(AutoSpawnTask spawnTask) {
+    public DrownedSpawner(AutoSpawnTask spawnTask) {
         super(spawnTask);
     }
 
@@ -21,16 +22,17 @@ public class SalmonSpawner extends AbstractEntitySpawner {
         if (blockId != Block.WATER && blockId != Block.STILL_WATER) {
         } else if (biomeId != 0 && biomeId != 7) {
         } else if (pos.y > 255 || pos.y < 1) {
-        } else {
+        } else if (level.getBlockLightAt((int) pos.x, (int) pos.y, (int) pos.z) > 7) {
+        } else if (MobPlugin.isMobSpawningAllowedByTime(level)) {
             int b = level.getBlockIdAt((int) pos.x, (int) (pos.y -1), (int) pos.z);
             if (b == Block.WATER || b == Block.STILL_WATER) {
-                this.spawnTask.createEntity("Salmon", pos.add(0, -1, 0));
+                this.spawnTask.createEntity("Drowned", pos.add(0, -1, 0));
             }
         }
     }
 
     @Override
     public final int getEntityNetworkId() {
-        return EntitySalmon.NETWORK_ID;
+        return Drowned.NETWORK_ID;
     }
 }

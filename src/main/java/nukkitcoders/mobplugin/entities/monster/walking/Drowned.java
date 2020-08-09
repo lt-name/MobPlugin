@@ -94,6 +94,8 @@ public class Drowned extends WalkingMonster implements EntitySmite {
 
         boolean hasUpdate = super.entityBaseTick(tickDiff);
 
+        this.setAirTicks(300);
+
         if (MobPlugin.shouldMobBurn(level, this)) {
             this.setOnFire(100);
         }
