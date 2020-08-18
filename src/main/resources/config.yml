@@ -53,6 +53,7 @@ autospawn:
   fox: 2
   panda: 1
   drowned: 2
+  bee: 3
 
 other:
   # mob spawner spawning range

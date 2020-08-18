@@ -11,6 +11,7 @@ import cn.nukkit.math.Vector3;
 import cn.nukkit.utils.Config;
 import nukkitcoders.mobplugin.entities.BaseEntity;
 import nukkitcoders.mobplugin.entities.animal.flying.Bat;
+import nukkitcoders.mobplugin.entities.animal.flying.Bee;
 import nukkitcoders.mobplugin.entities.animal.flying.Parrot;
 import nukkitcoders.mobplugin.entities.animal.jumping.Rabbit;
 import nukkitcoders.mobplugin.entities.animal.swimming.*;
@@ -94,6 +95,7 @@ public class AutoSpawnTask implements Runnable {
         entitySpawners.add(new FoxSpawner(this));
         entitySpawners.add(new PandaSpawner(this));
         entitySpawners.add(new DrownedSpawner(this));
+        entitySpawners.add(new BeeSpawner(this));
     }
 
     private void prepareMaxSpawns() {
@@ -134,6 +136,7 @@ public class AutoSpawnTask implements Runnable {
         maxSpawns.put(Fox.NETWORK_ID, this.pluginConfig.getInt("autospawn.fox"));
         maxSpawns.put(Panda.NETWORK_ID, this.pluginConfig.getInt("autospawn.panda"));
         maxSpawns.put(Drowned.NETWORK_ID, this.pluginConfig.getInt("autospawn.drowned"));
+        maxSpawns.put(Bee.NETWORK_ID, this.pluginConfig.getInt("autospawn.bee"));
     }
 
     public boolean entitySpawnAllowed(Level level, int networkId, Vector3 pos) {
